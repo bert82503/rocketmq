@@ -18,55 +18,169 @@ package org.apache.rocketmq.common.message;
 
 import java.util.HashSet;
 
+/**
+ * 消息系统保留的属性Key集合
+ */
 public class MessageConst {
+    /**
+     * 索引Key列表，消息的索引键
+     * 消息的业务关键词
+     */
     public static final String PROPERTY_KEYS = "KEYS";
+    /**
+     * 过滤标签Tag，消息的过滤标签
+     * 消息标签，方便服务器过滤使用。目前只支持每个消息设置一个
+     */
     public static final String PROPERTY_TAGS = "TAGS";
+    /**
+     * 表示消息是否在服务器落盘后才返回应答。
+     */
     public static final String PROPERTY_WAIT_STORE_MSG_OK = "WAIT";
+    /**
+     * 定时时间
+     * 定时场景下，消息触发延时投递的毫秒级时间戳。
+     * 【定时/延时消息】
+     */
     public static final String PROPERTY_DELAY_TIME_LEVEL = "DELAY";
+    /**
+     * 重试主题
+     */
     public static final String PROPERTY_RETRY_TOPIC = "RETRY_TOPIC";
+    /**
+     * 真实主题
+     */
     public static final String PROPERTY_REAL_TOPIC = "REAL_TOPIC";
+    /**
+     * 真实队列id
+     */
     public static final String PROPERTY_REAL_QUEUE_ID = "REAL_QID";
+    /**
+     * 事务消息
+     */
     public static final String PROPERTY_TRANSACTION_PREPARED = "TRAN_MSG";
+    /**
+     * 生产者分组
+     */
     public static final String PROPERTY_PRODUCER_GROUP = "PGROUP";
+    /**
+     * 最小消息位点
+     */
     public static final String PROPERTY_MIN_OFFSET = "MIN_OFFSET";
+    /**
+     * 最大消息位点
+     */
     public static final String PROPERTY_MAX_OFFSET = "MAX_OFFSET";
+    /**
+     * 买家id
+     */
     public static final String PROPERTY_BUYER_ID = "BUYER_ID";
+    /**
+     * 原始消息id
+     */
     public static final String PROPERTY_ORIGIN_MESSAGE_ID = "ORIGIN_MESSAGE_ID";
+    /**
+     * 传输标志
+     */
     public static final String PROPERTY_TRANSFER_FLAG = "TRANSFER_FLAG";
+    /**
+     * 更正标志
+     */
     public static final String PROPERTY_CORRECTION_FLAG = "CORRECTION_FLAG";
     public static final String PROPERTY_MQ2_FLAG = "MQ2_FLAG";
+    /**
+     * 重新消费时间
+     */
     public static final String PROPERTY_RECONSUME_TIME = "RECONSUME_TIME";
+    /**
+     * 消息分区
+     */
     public static final String PROPERTY_MSG_REGION = "MSG_REGION";
+    /**
+     * 消息轨迹开关
+     */
     public static final String PROPERTY_TRACE_SWITCH = "TRACE_ON";
     public static final String PROPERTY_UNIQ_CLIENT_MESSAGE_ID_KEYIDX = "UNIQ_KEY";
     public static final String PROPERTY_EXTEND_UNIQ_INFO = "EXTEND_UNIQ_INFO";
+    /**
+     * 最大重新消费次数
+     */
     public static final String PROPERTY_MAX_RECONSUME_TIMES = "MAX_RECONSUME_TIMES";
+    /**
+     * 消费开始时间
+     */
     public static final String PROPERTY_CONSUME_START_TIMESTAMP = "CONSUME_START_TIME";
     public static final String PROPERTY_INNER_NUM = "INNER_NUM";
     public static final String PROPERTY_INNER_BASE = "INNER_BASE";
     public static final String DUP_INFO = "DUP_INFO";
     public static final String PROPERTY_CHECK_IMMUNITY_TIME_IN_SECONDS = "CHECK_IMMUNITY_TIME_IN_SECONDS";
+    /**
+     * 可重入队列消息位点
+     */
     public static final String PROPERTY_TRANSACTION_PREPARED_QUEUE_OFFSET = "TRAN_PREPARED_QUEUE_OFFSET";
     public static final String PROPERTY_TRANSACTION_ID = "__transactionId__";
+    /**
+     * 事务检查次数
+     */
     public static final String PROPERTY_TRANSACTION_CHECK_TIMES = "TRANSACTION_CHECK_TIMES";
+    /**
+     * 实例id
+     */
     public static final String PROPERTY_INSTANCE_ID = "INSTANCE_ID";
+    /**
+     * 关联id
+     */
     public static final String PROPERTY_CORRELATION_ID = "CORRELATION_ID";
+    /**
+     * 回复给客户端
+     */
     public static final String PROPERTY_MESSAGE_REPLY_TO_CLIENT = "REPLY_TO_CLIENT";
+    /**
+     * 生存时间
+     */
     public static final String PROPERTY_MESSAGE_TTL = "TTL";
+    /**
+     * 回复消息到达时间
+     */
     public static final String PROPERTY_REPLY_MESSAGE_ARRIVE_TIME = "ARRIVE_TIME";
+    /**
+     * 推送回复时间
+     */
     public static final String PROPERTY_PUSH_REPLY_TIME = "PUSH_REPLY_TIME";
+    /**
+     * 集群
+     */
     public static final String PROPERTY_CLUSTER = "CLUSTER";
+    /**
+     * 消息类型
+     */
     public static final String PROPERTY_MESSAGE_TYPE = "MSG_TYPE";
     public static final String PROPERTY_POP_CK = "POP_CK";
     public static final String PROPERTY_POP_CK_OFFSET = "POP_CK_OFFSET";
     public static final String PROPERTY_FIRST_POP_TIME = "1ST_POP_TIME";
+    /**
+     * 分片
+     */
     public static final String PROPERTY_SHARDING_KEY = "__SHARDINGKEY";
     public static final String PROPERTY_FORWARD_QUEUE_ID = "PROPERTY_FORWARD_QUEUE_ID";
     public static final String PROPERTY_REDIRECT = "REDIRECT";
     public static final String PROPERTY_INNER_MULTI_DISPATCH = "INNER_MULTI_DISPATCH";
+    /**
+     * 多个消息队列的消息位点
+     */
     public static final String PROPERTY_INNER_MULTI_QUEUE_OFFSET = "INNER_MULTI_QUEUE_OFFSET";
+    /**
+     * 消息轨迹上下文
+     */
     public static final String PROPERTY_TRACE_CONTEXT = "TRACE_CONTEXT";
+    /**
+     * 消息延时级别-秒
+     * 【定时/延时消息】
+     */
     public static final String PROPERTY_TIMER_DELAY_SEC = "TIMER_DELAY_SEC";
+    /**
+     * 消息投递级别-毫秒
+     * 【定时/延时消息】
+     */
     public static final String PROPERTY_TIMER_DELIVER_MS = "TIMER_DELIVER_MS";
     public static final String PROPERTY_BORN_HOST = "__BORNHOST";
     public static final String PROPERTY_BORN_TIMESTAMP = "BORN_TIMESTAMP";
@@ -86,16 +200,34 @@ public class MessageConst {
      */
     public static final String PROPERTY_TRANSIENT_GROUP_CONFIG = PROPERTY_TRANSIENT_PREFIX + "GROUP_SYS_FLAG";
 
+    /**
+     * 消息索引分隔符
+     */
     public static final String KEY_SEPARATOR = " ";
 
+    /**
+     * 系统保留的属性Key集合
+     */
     public static final HashSet<String> STRING_HASH_SET = new HashSet<>(64);
 
+    /**
+     * 定时器进入队列时间
+     */
     public static final String PROPERTY_TIMER_ENQUEUE_MS = "TIMER_ENQUEUE_MS";
+    /**
+     * 定时器出去队列时间
+     */
     public static final String PROPERTY_TIMER_DEQUEUE_MS = "TIMER_DEQUEUE_MS";
     public static final String PROPERTY_TIMER_ROLL_TIMES = "TIMER_ROLL_TIMES";
     public static final String PROPERTY_TIMER_OUT_MS = "TIMER_OUT_MS";
     public static final String PROPERTY_TIMER_DEL_UNIQKEY = "TIMER_DEL_UNIQKEY";
+    /**
+     * 定时器延时级别
+     */
     public static final String PROPERTY_TIMER_DELAY_LEVEL = "TIMER_DELAY_LEVEL";
+    /**
+     * 定时器延时毫秒数
+     */
     public static final String PROPERTY_TIMER_DELAY_MS = "TIMER_DELAY_MS";
 
     /**
