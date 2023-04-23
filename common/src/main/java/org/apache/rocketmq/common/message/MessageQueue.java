@@ -18,14 +18,33 @@ package org.apache.rocketmq.common.message;
 
 import java.io.Serializable;
 
+/**
+ * 消息队列
+ * <p></p>
+ * 队列是消息存储和传输的实际容器，也是消息的最小存储单元。
+ * 所有主题都是由多个队列组成，以此实现队列数量的水平拆分和队列内部的流式存储。
+ * 队列通过QueueId来做唯一标识和区分。
+ * <p></p>
+ * 消息传输和存储的实际单元容器，类比于其他消息队列中的分区。
+ * 通过流式特性的无限队列结构来存储消息，消息在队列内具备顺序性存储特征。
+ */
 public class MessageQueue implements Comparable<MessageQueue>, Serializable {
     private static final long serialVersionUID = 6191200464116433425L;
+
+    /**
+     * 消息主题
+     */
     private String topic;
+    /**
+     * 消息中转角色，负责存储消息，转发消息。
+     */
     private String brokerName;
+    /**
+     * 队列ID
+     */
     private int queueId;
 
     public MessageQueue() {
-
     }
 
     public MessageQueue(MessageQueue other) {

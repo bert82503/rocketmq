@@ -92,7 +92,7 @@ public class MessageConst {
      */
     public static final String PROPERTY_RECONSUME_TIME = "RECONSUME_TIME";
     /**
-     * 消息分区
+     * 消息实例所处地域
      */
     public static final String PROPERTY_MSG_REGION = "MSG_REGION";
     /**
