@@ -18,8 +18,17 @@ package org.apache.rocketmq.common.message;
 
 import java.net.SocketAddress;
 
+/**
+ * 消息ID：消息的唯一标识，集群内每条消息的ID全局唯一。
+ */
 public class MessageId {
+    /**
+     * 套接字地址
+     */
     private SocketAddress address;
+    /**
+     * 消息位点：当前消息存储在队列中的位置。
+     */
     private long offset;
 
     public MessageId(SocketAddress address, long offset) {
