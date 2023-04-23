@@ -22,13 +22,50 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 消息【领域模型】
+ * <p></p>
+ * 消息是 MQ 中的最小数据传输单元。
+ * 生产者将业务数据的负载和拓展属性包装成消息发送到服务端，服务端按照相关语义将消息投递到消费端进行消费。
+ * <pre>
+ * 消息模型具备如下特点：
+ * * 消息不可变性
+ *   消息本质上是已经产生并确定的事件，一旦产生后，消息的内容不会发生改变。
+ *   即使经过传输链路的控制也不会发生变化，消费端获取的消息都是只读消息视图。
+ * * 消息持久化
+ *   默认对消息进行持久化，即将接收到的消息存储到服务端的存储文件中，保证消息的可回溯性和系统故障场景下的可恢复性。
+ * </pre>
+ * https://rocketmq.apache.org/zh/docs/domainModel/04message/
+ */
 public class Message implements Serializable {
     private static final long serialVersionUID = 8445773977080406428L;
 
+    /**
+     * 消息的主题/主题名称，消息所属 topic 的名称
+     * <p></p>
+     * 主题的名称，用于标识主题，主题名称集群内全局唯一。
+     */
     private String topic;
+    /**
+     * 完全由应用来设置，MQ 不做干预
+     */
     private int flag;
+    /**
+     * 消息属性
+     * <pre>
+     * 索引Key列表：消息的索引键，可通过设置不同的Key区分消息和快速查找消息。(消息的业务标识）
+     * 过滤标签Tag：消息的过滤标签。消费者可通过Tag对消息进行过滤，仅接收指定标签的消息。
+     * 业务自定义属性：生产者可以自定义设置的扩展信息。
+     * </pre>
+     */
     private Map<String, String> properties;
+    /**
+     * 消息的存储内容，消息体
+     */
     private byte[] body;
+    /**
+     * 会在事务消息中使用
+     */
     private String transactionId;
 
     public Message() {
@@ -68,7 +105,7 @@ public class Message implements Serializable {
 
     void putProperty(final String name, final String value) {
         if (null == this.properties) {
-            this.properties = new HashMap<>();
+            this.properties = new HashMap<>(16);
         }
 
         this.properties.put(name, value);
@@ -102,7 +139,7 @@ public class Message implements Serializable {
 
     public String getProperty(final String name) {
         if (null == this.properties) {
-            this.properties = new HashMap<>();
+            this.properties = new HashMap<>(16);
         }
 
         return this.properties.get(name);
