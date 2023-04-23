@@ -22,14 +22,33 @@ import java.util.Map;
 import java.util.Set;
 import org.apache.rocketmq.common.message.MessageConst;
 
+/**
+ * 主题所支持的消息类型
+ */
 public enum TopicMessageType {
+    /**
+     * 未指定
+     */
     UNSPECIFIED("UNSPECIFIED"),
+    /**
+     * 普通消息，消息本身无特殊语义，消息之间也没有任何关联。
+     */
     NORMAL("NORMAL"),
+    /**
+     * 顺序消息，通过消息分组标记一组特定消息的先后顺序，可以保证消息的投递顺序严格按照消息发送时的顺序。
+     */
     FIFO("FIFO"),
+    /**
+     * 定时/延时消息，通过指定延时时间控制消息生产后不要立即投递，而是在延时间隔后才对消费者可见。
+     */
     DELAY("DELAY"),
+    /**
+     * 事务消息，支持分布式事务消息，支持应用数据库更新和消息调用的事务一致性保障。
+     */
     TRANSACTION("TRANSACTION");
 
     private final String value;
+
     TopicMessageType(String value) {
         this.value = value;
     }
