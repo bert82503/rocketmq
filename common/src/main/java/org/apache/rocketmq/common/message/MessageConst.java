@@ -99,6 +99,9 @@ public class MessageConst {
      * 消息轨迹开关
      */
     public static final String PROPERTY_TRACE_SWITCH = "TRACE_ON";
+    /**
+     * 消息ID：消息的唯一标识，集群内每条消息的ID全局唯一
+     */
     public static final String PROPERTY_UNIQ_CLIENT_MESSAGE_ID_KEYIDX = "UNIQ_KEY";
     public static final String PROPERTY_EXTEND_UNIQ_INFO = "EXTEND_UNIQ_INFO";
     /**

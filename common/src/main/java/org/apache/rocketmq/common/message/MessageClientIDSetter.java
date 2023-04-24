@@ -22,22 +22,47 @@ import java.util.Date;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.apache.rocketmq.common.UtilAll;
 
+/**
+ * 消息客户端ID生成器
+ * 消息ID：消息的唯一标识，集群内每条消息的ID全局唯一
+ */
 public class MessageClientIDSetter {
-    
+
+    /**
+     * 长度
+     */
     private static final int LEN;
+    /**
+     * 固定字符串
+     * ip+pid+类加载器的散列码
+     */
     private static final char[] FIX_STRING;
+    /**
+     * 消息计数器
+     */
     private static final AtomicInteger COUNTER;
+    /**
+     * 开始时间
+     * 当月的第一天
+     */
     private static long startTime;
+    /**
+     * 下一次开始时间
+     * 下个月的第一天
+     */
     private static long nextStartTime;
 
     static {
+        // 消息id编码
         byte[] ip;
         try {
             ip = UtilAll.getIP();
         } catch (Exception e) {
             ip = createFakeIP();
         }
+        // 长度
         LEN = ip.length + 2 + 4 + 4 + 2;
+        // 固定字符串：ip+pid+类加载器的散列码
         ByteBuffer tempBuffer = ByteBuffer.allocate(ip.length + 2 + 4);
         tempBuffer.put(ip);
         tempBuffer.putShort((short) UtilAll.getPid());
@@ -48,6 +73,7 @@ public class MessageClientIDSetter {
     }
 
     private synchronized static void setStartTime(long millis) {
+        // 当月的第一天
         Calendar cal = Calendar.getInstance();
         cal.setTimeInMillis(millis);
         cal.set(Calendar.DAY_OF_MONTH, 1);
@@ -56,9 +82,12 @@ public class MessageClientIDSetter {
         cal.set(Calendar.SECOND, 0);
         cal.set(Calendar.MILLISECOND, 0);
         startTime = cal.getTimeInMillis();
+        // 下个月的第一天
         cal.add(Calendar.MONTH, 1);
         nextStartTime = cal.getTimeInMillis();
     }
+
+    // 消息id解码
 
     public static Date getNearlyTimeFromID(String msgID) {
         ByteBuffer buf = ByteBuffer.allocate(8);
@@ -111,6 +140,13 @@ public class MessageClientIDSetter {
         return value & 0x0000FFFF;
     }
 
+    // 消息ID：消息的唯一标识，集群内每条消息的ID全局唯一
+
+    /**
+     * 创建消息的唯一标识
+     *
+     * @return 消息ID：消息的唯一标识，集群内每条消息的ID全局唯一
+     */
     public static String createUniqID() {
         char[] sb = new char[LEN * 2];
         System.arraycopy(FIX_STRING, 0, sb, 0, FIX_STRING.length);
@@ -118,6 +154,7 @@ public class MessageClientIDSetter {
         if (current >= nextStartTime) {
             setStartTime(current);
         }
+        // 时钟误差在[0, 1]秒之间
         int diff = (int)(current - startTime);
         if (diff < 0 && diff > -1000_000) {
             // may cause by NTP
@@ -126,10 +163,16 @@ public class MessageClientIDSetter {
         int pos = FIX_STRING.length;
         UtilAll.writeInt(sb, pos, diff);
         pos += 8;
+        // 消息计数
         UtilAll.writeShort(sb, pos, COUNTER.getAndIncrement());
         return new String(sb);
     }
 
+    /**
+     * 设置消息的唯一标识
+     *
+     * @param msg 消息
+     */
     public static void setUniqID(final Message msg) {
         if (msg.getProperty(MessageConst.PROPERTY_UNIQ_CLIENT_MESSAGE_ID_KEYIDX) == null) {
             msg.putProperty(MessageConst.PROPERTY_UNIQ_CLIENT_MESSAGE_ID_KEYIDX, createUniqID());
