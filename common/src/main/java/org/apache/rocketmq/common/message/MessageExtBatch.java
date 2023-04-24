@@ -19,6 +19,9 @@ package org.apache.rocketmq.common.message;
 
 import java.nio.ByteBuffer;
 
+/**
+ * 拓展消息的消息中转角色的批处理
+ */
 public class MessageExtBatch extends MessageExtBrokerInner {
 
     private static final long serialVersionUID = -2353110995348498537L;
@@ -43,10 +46,12 @@ public class MessageExtBatch extends MessageExtBrokerInner {
 
     private ByteBuffer encodedBuff;
 
+    @Override
     public ByteBuffer getEncodedBuff() {
         return encodedBuff;
     }
 
+    @Override
     public void setEncodedBuff(ByteBuffer encodedBuff) {
         this.encodedBuff = encodedBuff;
     }
