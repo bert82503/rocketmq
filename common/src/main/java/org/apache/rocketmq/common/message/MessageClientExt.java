@@ -16,7 +16,12 @@
  */
 package org.apache.rocketmq.common.message;
 
+/**
+ * 客户端拓展消息
+ */
 public class MessageClientExt extends MessageExt {
+
+    // 消息ID
 
     public String getOffsetMsgId() {
         return super.getMsgId();
@@ -28,6 +33,7 @@ public class MessageClientExt extends MessageExt {
 
     @Override
     public String getMsgId() {
+        // 消息的唯一标识
         String uniqID = MessageClientIDSetter.getUniqID(this);
         if (uniqID == null) {
             return this.getOffsetMsgId();
@@ -36,6 +42,7 @@ public class MessageClientExt extends MessageExt {
         }
     }
 
+    @Override
     public void setMsgId(String msgId) {
         //DO NOTHING
         //MessageClientIDSetter.setUniqID(this);
