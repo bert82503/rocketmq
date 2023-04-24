@@ -24,27 +24,72 @@ import java.nio.ByteBuffer;
 import org.apache.rocketmq.common.TopicFilterType;
 import org.apache.rocketmq.common.sysflag.MessageSysFlag;
 
+/**
+ * 拓展消息
+ */
 public class MessageExt extends Message {
     private static final long serialVersionUID = 5720810158625748049L;
 
+    /**
+     * 消息中转角色，负责存储消息，转发消息。
+     */
     private String brokerName;
 
+    /**
+     * 队列ID
+     */
     private int queueId;
 
+    /**
+     * 存储大小
+     */
     private int storeSize;
 
+    /**
+     * 消息位点
+     */
     private long queueOffset;
+    /**
+     * 系统标志
+     */
     private int sysFlag;
+    /**
+     * 出生时间戳
+     */
     private long bornTimestamp;
+    /**
+     * 出生主机
+     */
     private SocketAddress bornHost;
 
+    /**
+     * 存储时间戳
+     */
     private long storeTimestamp;
+    /**
+     * 存储主机
+     */
     private SocketAddress storeHost;
+    /**
+     * 消息ID：消息的唯一标识，集群内每条消息的ID全局唯一。
+     */
     private String msgId;
+    /**
+     * 提交日志位点
+     */
     private long commitLogOffset;
+    /**
+     * 消息体的循环冗余码校验
+     */
     private int bodyCRC;
+    /**
+     * 消费次数
+     */
     private int reconsumeTimes;
 
+    /**
+     * 事务位点
+     */
     private long preparedTransactionOffset;
 
     public MessageExt() {
@@ -61,12 +106,15 @@ public class MessageExt extends Message {
     }
 
     public static TopicFilterType parseTopicFilterType(final int sysFlag) {
+        // 主题过滤类型
         if ((sysFlag & MessageSysFlag.MULTI_TAGS_FLAG) == MessageSysFlag.MULTI_TAGS_FLAG) {
             return TopicFilterType.MULTI_TAG;
         }
 
         return TopicFilterType.SINGLE_TAG;
     }
+
+    // 主机的套接字地址的字节缓冲区
 
     public static ByteBuffer socketAddress2ByteBuffer(final SocketAddress socketAddress, final ByteBuffer byteBuffer) {
         InetSocketAddress inetSocketAddress = (InetSocketAddress) socketAddress;
@@ -76,6 +124,7 @@ public class MessageExt extends Message {
         } else {
             byteBuffer.put(inetSocketAddress.getAddress().getAddress(), 0, 16);
         }
+        // 4个字节
         byteBuffer.putInt(inetSocketAddress.getPort());
         byteBuffer.flip();
         return byteBuffer;
