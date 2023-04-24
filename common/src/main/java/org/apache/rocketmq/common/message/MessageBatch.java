@@ -22,9 +22,15 @@ import java.util.Iterator;
 import java.util.List;
 import org.apache.rocketmq.common.MixAll;
 
+/**
+ * 批处理消息
+ */
 public class MessageBatch extends Message implements Iterable<Message> {
 
     private static final long serialVersionUID = 621335151046335557L;
+    /**
+     * 消息列表
+     */
     private final List<Message> messages;
 
     private MessageBatch(List<Message> messages) {
@@ -35,6 +41,7 @@ public class MessageBatch extends Message implements Iterable<Message> {
         return MessageDecoder.encodeMessages(messages);
     }
 
+    @Override
     public Iterator<Message> iterator() {
         return messages.iterator();
     }
@@ -46,15 +53,18 @@ public class MessageBatch extends Message implements Iterable<Message> {
         Message first = null;
         for (Message message : messages) {
             if (message.getDelayTimeLevel() > 0) {
+                // 定时/延时消息
                 throw new UnsupportedOperationException("TimeDelayLevel is not supported for batching");
             }
             if (message.getTopic().startsWith(MixAll.RETRY_GROUP_TOPIC_PREFIX)) {
+                // 重试分组消息主题
                 throw new UnsupportedOperationException("Retry Group is not supported for batching");
             }
             if (first == null) {
                 first = message;
             } else {
                 if (!first.getTopic().equals(message.getTopic())) {
+                    // 消息主题需要一样
                     throw new UnsupportedOperationException("The topic of the messages in one batch should be the same");
                 }
                 if (first.isWaitStoreMsgOK() != message.isWaitStoreMsgOK()) {
@@ -65,7 +75,9 @@ public class MessageBatch extends Message implements Iterable<Message> {
         }
         MessageBatch messageBatch = new MessageBatch(messageList);
 
+        // 主题
         messageBatch.setTopic(first.getTopic());
+        // 表示消息是否在服务器落盘后才返回应答
         messageBatch.setWaitStoreMsgOK(first.isWaitStoreMsgOK());
         return messageBatch;
     }
