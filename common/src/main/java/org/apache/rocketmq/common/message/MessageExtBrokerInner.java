@@ -20,13 +20,28 @@ import java.nio.ByteBuffer;
 
 import org.apache.rocketmq.common.TopicFilterType;
 
+/**
+ * 拓展消息的消息中转角色，负责存储消息，转发消息。
+ */
 public class MessageExtBrokerInner extends MessageExt {
     private static final long serialVersionUID = 7256001576878700634L;
+    /**
+     * 消息属性
+     */
     private String propertiesString;
+    /**
+     * 消息标签的散列码
+     */
     private long tagsCode;
 
+    /**
+     * 消息编码后的字节缓冲区
+     */
     private ByteBuffer encodedBuff;
 
+    /**
+     * 消息版本
+     */
     private MessageVersion version = MessageVersion.MESSAGE_VERSION_V1;
 
     public ByteBuffer getEncodedBuff() {
