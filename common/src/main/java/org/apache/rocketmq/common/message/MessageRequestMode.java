@@ -18,20 +18,23 @@ package org.apache.rocketmq.common.message;
 
 /**
  * Message Request Mode
+ * 消息请求模式
  */
 public enum MessageRequestMode {
 
     /**
      * pull
+     * 拉取
      */
     PULL("PULL"),
 
     /**
      * pop, consumer working in pop mode could share MessageQueue
+     * 弹出
      */
     POP("POP");
 
-    private String name;
+    private final String name;
 
     MessageRequestMode(String name) {
         this.name = name;
