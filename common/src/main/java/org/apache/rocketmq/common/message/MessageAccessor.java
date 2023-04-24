@@ -19,6 +19,9 @@ package org.apache.rocketmq.common.message;
 
 import java.util.Map;
 
+/**
+ * 消息属性访问者代理模式
+ */
 public class MessageAccessor {
 
     public static void clearProperty(final Message msg, final String name) {
