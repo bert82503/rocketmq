@@ -19,12 +19,27 @@ package org.apache.rocketmq.common.message;
 
 import java.io.Serializable;
 
+/**
+ * 消费者的消息队列
+ */
 public class MessageQueueForC implements Comparable<MessageQueueForC>, Serializable {
 
     private static final long serialVersionUID = 5320967846569962104L;
+    /**
+     * 消息主题
+     */
     private String topic;
+    /**
+     * 消息中转角色，负责存储消息，转发消息。
+     */
     private String brokerName;
+    /**
+     * 队列ID
+     */
     private int queueId;
+    /**
+     * 消费位点
+     */
     private long offset;
 
     public MessageQueueForC(String topic, String brokerName, int queueId, long offset) {
