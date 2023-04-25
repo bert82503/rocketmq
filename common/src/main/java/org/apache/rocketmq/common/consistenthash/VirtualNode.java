@@ -16,8 +16,19 @@
  */
 package org.apache.rocketmq.common.consistenthash;
 
+/**
+ * 虚拟节点
+ *
+ * @param <T> 节点类型
+ */
 public class VirtualNode<T extends Node> implements Node {
+    /**
+     * 物理节点
+     */
     final T physicalNode;
+    /**
+     * 副本索引
+     */
     final int replicaIndex;
 
     public VirtualNode(T physicalNode, int replicaIndex) {
