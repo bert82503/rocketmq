@@ -16,8 +16,14 @@
  */
 package org.apache.rocketmq.common.sysflag;
 
+/**
+ * 订阅关系系统标志
+ */
 public class SubscriptionSysFlag {
 
+    /**
+     * 单元
+     */
     private final static int FLAG_UNIT = 0x1 << 0;
 
     public static int buildSysFlag(final boolean unit) {
@@ -40,8 +46,5 @@ public class SubscriptionSysFlag {
 
     public static boolean hasUnitFlag(final int sysFlag) {
         return (sysFlag & FLAG_UNIT) == FLAG_UNIT;
-    }
-
-    public static void main(String[] args) {
     }
 }
