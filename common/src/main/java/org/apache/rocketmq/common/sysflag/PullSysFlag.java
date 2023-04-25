@@ -16,15 +16,35 @@
  */
 package org.apache.rocketmq.common.sysflag;
 
+/**
+ * 消息拉取系统标志
+ */
 public class PullSysFlag {
+    /**
+     * 提交位点
+     * 消息位点
+     */
     private final static int FLAG_COMMIT_OFFSET = 0x1;
+    /**
+     * 暂停
+     */
     private final static int FLAG_SUSPEND = 0x1 << 1;
+    /**
+     * 订阅关系
+     */
     private final static int FLAG_SUBSCRIPTION = 0x1 << 2;
+    /**
+     * 类型过滤
+     */
     private final static int FLAG_CLASS_FILTER = 0x1 << 3;
+    /**
+     * 精简版拉取消息
+     */
     private final static int FLAG_LITE_PULL_MESSAGE = 0x1 << 4;
 
-    public static int buildSysFlag(final boolean commitOffset, final boolean suspend,
-        final boolean subscription, final boolean classFilter) {
+    public static int buildSysFlag(
+            final boolean commitOffset, final boolean suspend,
+            final boolean subscription, final boolean classFilter) {
         int flag = 0;
 
         if (commitOffset) {
