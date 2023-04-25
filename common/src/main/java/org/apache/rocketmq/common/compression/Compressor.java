@@ -19,6 +19,9 @@ package org.apache.rocketmq.common.compression;
 
 import java.io.IOException;
 
+/**
+ * 数据解压缩机
+ */
 public interface Compressor {
 
     /**

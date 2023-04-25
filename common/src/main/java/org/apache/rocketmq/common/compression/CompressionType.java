@@ -20,7 +20,7 @@ package org.apache.rocketmq.common.compression;
 import org.apache.rocketmq.common.sysflag.MessageSysFlag;
 
 /**
- * 消息压缩类型
+ * 数据压缩类型
  */
 public enum CompressionType {
 
