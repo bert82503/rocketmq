@@ -48,7 +48,7 @@ public class Message implements Serializable {
      */
     private String topic;
     /**
-     * 完全由应用来设置，MQ 不做干预
+     * 业务标志，完全由应用来设置，MQ 不做干预
      */
     private int flag;
     /**

@@ -74,7 +74,7 @@ public enum MessageVersion {
     };
 
     /**
-     * 魔术代码
+     * 魔法编码
      */
     private final int magicCode;
 

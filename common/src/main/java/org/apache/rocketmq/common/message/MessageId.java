@@ -24,6 +24,7 @@ import java.net.SocketAddress;
 public class MessageId {
     /**
      * 套接字地址
+     * 套接字原生ip地址+端口
      */
     private SocketAddress address;
     /**
