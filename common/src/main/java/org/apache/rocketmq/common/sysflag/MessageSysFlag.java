@@ -18,6 +18,9 @@ package org.apache.rocketmq.common.sysflag;
 
 import org.apache.rocketmq.common.compression.CompressionType;
 
+/**
+ * 消息系统标志
+ */
 public class MessageSysFlag {
 
     /**
@@ -30,22 +33,66 @@ public class MessageSysFlag {
      * | byte 3 |   |   |           |          |             |                  |                  |                  |
      * | byte 4 |   |   |           |          |             |                  |                  |                  |
      */
+    /**
+     * 消息解压缩标志
+     */
     public final static int COMPRESSED_FLAG = 0x1;
+    /**
+     * 多个消息标签标志
+     */
     public final static int MULTI_TAGS_FLAG = 0x1 << 1;
+    // 事务消息
+    /**
+     * 事务消息
+     */
     public final static int TRANSACTION_NOT_TYPE = 0;
+    /**
+     * 事务消息-准备阶段
+     */
     public final static int TRANSACTION_PREPARED_TYPE = 0x1 << 2;
+    /**
+     * 事务消息-提交阶段
+     */
     public final static int TRANSACTION_COMMIT_TYPE = 0x2 << 2;
+    /**
+     * 事务消息-回滚阶段
+     */
     public final static int TRANSACTION_ROLLBACK_TYPE = 0x3 << 2;
+    /**
+     * 出生主机地址
+     */
     public final static int BORNHOST_V6_FLAG = 0x1 << 4;
+    /**
+     * 存储主机地址
+     */
     public final static int STOREHOSTADDRESS_V6_FLAG = 0x1 << 5;
     //Mark the flag for batch to avoid conflict
+    /**
+     * 需要拆开包装标志
+     */
     public final static int NEED_UNWRAP_FLAG = 0x1 << 6;
+    /**
+     * 批处理消息标志
+     */
     public final static int INNER_BATCH_FLAG = 0x1 << 7;
 
+    // 消息压缩类型
     // COMPRESSION_TYPE
+    /**
+     * lz4 压缩
+     */
     public final static int COMPRESSION_LZ4_TYPE = 0x1 << 8;
+    /**
+     * zstd 压缩
+     */
     public final static int COMPRESSION_ZSTD_TYPE = 0x2 << 8;
+    /**
+     * zlib 压缩
+     */
     public final static int COMPRESSION_ZLIB_TYPE = 0x3 << 8;
+    /**
+     * 压缩类型比较器
+     */
     public final static int COMPRESSION_TYPE_COMPARATOR = 0x7 << 8;
 
     public static int getTransactionValue(final int flag) {
