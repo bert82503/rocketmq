@@ -27,15 +27,25 @@ import org.apache.rocketmq.logging.org.slf4j.LoggerFactory;
 
 /**
  * thread safe
+ * 并发的树型映射表
  */
 public class ConcurrentTreeMap<K, V> {
     private static final Logger log = LoggerFactory.getLogger(LoggerName.BROKER_LOGGER_NAME);
+    /**
+     * 可重入锁
+     */
     private final ReentrantLock lock;
-    private TreeMap<K, V> tree;
-    private RoundQueue<K> roundQueue;
+    /**
+     * 树型映射表
+     */
+    private final TreeMap<K, V> treeMap;
+    /**
+     * 循环队列
+     */
+    private final RoundQueue<K> roundQueue;
 
     public ConcurrentTreeMap(int capacity, Comparator<? super K> comparator) {
-        tree = new TreeMap<>(comparator);
+        treeMap = new TreeMap<>(comparator);
         roundQueue = new RoundQueue<>(capacity);
         lock = new ReentrantLock(true);
     }
@@ -43,26 +53,26 @@ public class ConcurrentTreeMap<K, V> {
     public Map.Entry<K, V> pollFirstEntry() {
         lock.lock();
         try {
-            return tree.pollFirstEntry();
+            return treeMap.pollFirstEntry();
         } finally {
             lock.unlock();
         }
     }
 
-    public V putIfAbsentAndRetExsit(K key, V value) {
+    public V putIfAbsentAndRetExist(K key, V value) {
         lock.lock();
         try {
             if (roundQueue.put(key)) {
-                V exsit = tree.get(key);
-                if (null == exsit) {
-                    tree.put(key, value);
-                    exsit = value;
+                V exist = treeMap.get(key);
+                if (null == exist) {
+                    treeMap.put(key, value);
+                    exist = value;
                 }
-                log.warn("putIfAbsentAndRetExsit success. " + key);
-                return exsit;
+                log.warn("putIfAbsentAndRetExist success. " + key);
+                return exist;
             } else {
-                V exsit = tree.get(key);
-                return exsit;
+                V exist = treeMap.get(key);
+                return exist;
             }
         } finally {
             lock.unlock();

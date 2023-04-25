@@ -22,11 +22,18 @@ import java.util.Queue;
 
 /**
  * not thread safe
+ * 循环队列
  */
 public class RoundQueue<E> {
 
-    private Queue<E> queue;
-    private int capacity;
+    /**
+     * 队列-双向链表
+     */
+    private final Queue<E> queue;
+    /**
+     * 容量
+     */
+    private final int capacity;
 
     public RoundQueue(int capacity) {
         this.capacity = capacity;
