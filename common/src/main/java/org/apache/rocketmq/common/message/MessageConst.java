@@ -24,7 +24,7 @@ import java.util.HashSet;
 public class MessageConst {
     /**
      * 索引Key列表，消息的索引键
-     * 消息的业务关键词
+     * 消息的业务标识
      */
     public static final String PROPERTY_KEYS = "KEYS";
     /**

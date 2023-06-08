@@ -65,6 +65,7 @@ public class Message implements Serializable {
      */
     private byte[] body;
     /**
+     * 事务身份
      * 会在事务消息中使用
      */
     private String transactionId;
@@ -100,9 +101,13 @@ public class Message implements Serializable {
         this(topic, tags, keys, 0, body, true);
     }
 
+    // 业务标识
+
     public void setKeys(String keys) {
         this.putProperty(MessageConst.PROPERTY_KEYS, keys);
     }
+
+    // 消息属性
 
     void putProperty(final String name, final String value) {
         if (null == this.properties) {
@@ -117,6 +122,8 @@ public class Message implements Serializable {
             this.properties.remove(name);
         }
     }
+
+    // 用户属性
 
     public void putUserProperty(final String name, final String value) {
         if (MessageConst.STRING_HASH_SET.contains(name)) {
@@ -172,6 +179,8 @@ public class Message implements Serializable {
         this.setKeys(keys);
     }
 
+    // 延时消息
+
     public int getDelayTimeLevel() {
         String t = this.getProperty(MessageConst.PROPERTY_DELAY_TIME_LEVEL);
         if (t != null) {
@@ -184,6 +193,8 @@ public class Message implements Serializable {
     public void setDelayTimeLevel(int level) {
         this.putProperty(MessageConst.PROPERTY_DELAY_TIME_LEVEL, String.valueOf(level));
     }
+
+    // 等待存储消息
 
     public boolean isWaitStoreMsgOK() {
         String result = this.getProperty(MessageConst.PROPERTY_WAIT_STORE_MSG_OK);
@@ -226,6 +237,8 @@ public class Message implements Serializable {
         this.properties = properties;
     }
 
+    // 买家身份
+
     public String getBuyerId() {
         return getProperty(MessageConst.PROPERTY_BUYER_ID);
     }
@@ -233,6 +246,8 @@ public class Message implements Serializable {
     public void setBuyerId(String buyerId) {
         putProperty(MessageConst.PROPERTY_BUYER_ID, buyerId);
     }
+
+    // 事务身份
 
     public String getTransactionId() {
         return transactionId;
