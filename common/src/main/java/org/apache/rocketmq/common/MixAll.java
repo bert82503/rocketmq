@@ -85,7 +85,13 @@ public class MixAll {
     public final static int UNIT_PRE_SIZE_FOR_MSG = 28;
     public final static int ALL_ACK_IN_SYNC_STATE_SET = -1;
 
+    /**
+     * 重试队列分组主题前缀
+     */
     public static final String RETRY_GROUP_TOPIC_PREFIX = "%RETRY%";
+    /**
+     * 死信队列分组主题前缀
+     */
     public static final String DLQ_GROUP_TOPIC_PREFIX = "%DLQ%";
     public static final String REPLY_TOPIC_POSTFIX = "REPLY_TOPIC";
     public static final String UNIQUE_MSG_QUERY_FLAG = "_UNIQUE_KEY_QUERY";
