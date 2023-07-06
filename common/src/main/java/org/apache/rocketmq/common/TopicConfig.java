@@ -27,18 +27,42 @@ import org.apache.rocketmq.common.constant.PermName;
 
 import static org.apache.rocketmq.common.TopicAttributes.TOPIC_MESSAGE_TYPE_ATTRIBUTE;
 
+/**
+ * 主题配置
+ */
 public class TopicConfig {
     private static final String SEPARATOR = " ";
+    /**
+     * 默认的读取队列数量
+     */
     public static int defaultReadQueueNums = 16;
+    /**
+     * 默认的写入队列数量
+     */
     public static int defaultWriteQueueNums = 16;
     private static final TypeReference<Map<String, String>> ATTRIBUTES_TYPE_REFERENCE = new TypeReference<Map<String, String>>() {
     };
+    /**
+     * 主题名称
+     */
     private String topicName;
+    /**
+     * 读取队列数量
+     */
     private int readQueueNums = defaultReadQueueNums;
+    /**
+     * 写入队列数量
+     */
     private int writeQueueNums = defaultWriteQueueNums;
     private int perm = PermName.PERM_READ | PermName.PERM_WRITE;
+    /**
+     * 主题过滤类型
+     */
     private TopicFilterType topicFilterType = TopicFilterType.SINGLE_TAG;
     private int topicSysFlag = 0;
+    /**
+     * 有序性
+     */
     private boolean order = false;
     // Field attributes should not have ' ' char in key or value, otherwise will lead to decode failure.
     private Map<String, String> attributes = new HashMap<>();
@@ -82,6 +106,9 @@ public class TopicConfig {
         this.attributes = other.attributes;
     }
 
+    /**
+     * 编码主题
+     */
     public String encode() {
         StringBuilder sb = new StringBuilder();
         //[0]
@@ -197,6 +224,8 @@ public class TopicConfig {
     public void setAttributes(Map<String, String> attributes) {
         this.attributes = attributes;
     }
+
+    // 主题消息类型
 
     @JSONField(serialize = false, deserialize = false)
     public TopicMessageType getTopicMessageType() {
