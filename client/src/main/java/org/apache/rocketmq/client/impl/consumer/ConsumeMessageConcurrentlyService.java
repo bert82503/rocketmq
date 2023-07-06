@@ -188,18 +188,24 @@ public class ConsumeMessageConcurrentlyService implements ConsumeMessageService 
         return result;
     }
 
+    // 消息消费流程
+
     @Override
     public void submitConsumeRequest(
         final List<MessageExt> msgs,
         final ProcessQueue processQueue,
         final MessageQueue messageQueue,
         final boolean dispatchToConsume) {
+        // 推送消费者的批量大小
         final int consumeBatchSize = this.defaultMQPushConsumer.getConsumeMessageBatchMaxSize();
         if (msgs.size() <= consumeBatchSize) {
+            // 消息封装到里面
             ConsumeRequest consumeRequest = new ConsumeRequest(msgs, processQueue, messageQueue);
             try {
+                // 丢线程池消费
                 this.consumeExecutor.submit(consumeRequest);
             } catch (RejectedExecutionException e) {
+                // 异常时，后续再丢线程池消费
                 this.submitConsumeRequestLater(consumeRequest);
             }
         } else {
@@ -213,14 +219,16 @@ public class ConsumeMessageConcurrentlyService implements ConsumeMessageService 
                     }
                 }
 
+                // 消息封装到里面
                 ConsumeRequest consumeRequest = new ConsumeRequest(msgThis, processQueue, messageQueue);
                 try {
+                    // 丢线程池消费
                     this.consumeExecutor.submit(consumeRequest);
                 } catch (RejectedExecutionException e) {
                     for (; total < msgs.size(); total++) {
                         msgThis.add(msgs.get(total));
                     }
-
+                    // 异常时，后续再丢线程池消费
                     this.submitConsumeRequestLater(consumeRequest);
                 }
             }
@@ -339,24 +347,19 @@ public class ConsumeMessageConcurrentlyService implements ConsumeMessageService 
         final MessageQueue messageQueue
     ) {
 
-        this.scheduledExecutorService.schedule(new Runnable() {
-
-            @Override
-            public void run() {
-                ConsumeMessageConcurrentlyService.this.submitConsumeRequest(msgs, processQueue, messageQueue, true);
-            }
-        }, 5000, TimeUnit.MILLISECONDS);
+        this.scheduledExecutorService.schedule(() ->
+                // 提交批量消费请求
+                ConsumeMessageConcurrentlyService.this
+                        .submitConsumeRequest(msgs, processQueue, messageQueue, true),
+                5000, TimeUnit.MILLISECONDS
+        );
     }
 
     private void submitConsumeRequestLater(final ConsumeRequest consumeRequest
     ) {
-
-        this.scheduledExecutorService.schedule(new Runnable() {
-
-            @Override
-            public void run() {
-                ConsumeMessageConcurrentlyService.this.consumeExecutor.submit(consumeRequest);
-            }
+        this.scheduledExecutorService.schedule(() -> {
+            // 提交消费请求
+            ConsumeMessageConcurrentlyService.this.consumeExecutor.submit(consumeRequest);
         }, 5000, TimeUnit.MILLISECONDS);
     }
 
@@ -386,7 +389,9 @@ public class ConsumeMessageConcurrentlyService implements ConsumeMessageService 
                 return;
             }
 
+            // 并发地消息监视器
             MessageListenerConcurrently listener = ConsumeMessageConcurrentlyService.this.messageListener;
+            // 并发消费的上下文
             ConsumeConcurrentlyContext context = new ConsumeConcurrentlyContext(messageQueue);
             ConsumeConcurrentlyStatus status = null;
             defaultMQPushConsumerImpl.tryResetPopRetryTopic(msgs, consumerGroup);
@@ -395,9 +400,12 @@ public class ConsumeMessageConcurrentlyService implements ConsumeMessageService 
             ConsumeMessageContext consumeMessageContext = null;
             if (ConsumeMessageConcurrentlyService.this.defaultMQPushConsumerImpl.hasHook()) {
                 consumeMessageContext = new ConsumeMessageContext();
+                // 命名空间
                 consumeMessageContext.setNamespace(defaultMQPushConsumer.getNamespace());
+                // 消费者分组
                 consumeMessageContext.setConsumerGroup(defaultMQPushConsumer.getConsumerGroup());
-                consumeMessageContext.setProps(new HashMap<>());
+                consumeMessageContext.setProps(new HashMap<>(16));
+                // 消息队列
                 consumeMessageContext.setMq(messageQueue);
                 consumeMessageContext.setMsgList(msgs);
                 consumeMessageContext.setSuccess(false);
@@ -413,6 +421,7 @@ public class ConsumeMessageConcurrentlyService implements ConsumeMessageService 
                         MessageAccessor.setConsumeStartTimeStamp(msg, String.valueOf(System.currentTimeMillis()));
                     }
                 }
+                // 消费消息
                 status = listener.consumeMessage(Collections.unmodifiableList(msgs), context);
             } catch (Throwable e) {
                 log.warn(String.format("consumeMessage exception: %s Group: %s Msgs: %s MQ: %s",
