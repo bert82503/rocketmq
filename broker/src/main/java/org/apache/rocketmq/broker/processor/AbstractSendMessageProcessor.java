@@ -88,6 +88,9 @@ public abstract class AbstractSendMessageProcessor implements NettyRequestProces
         this.consumeMessageHookList = consumeMessageHookList;
     }
 
+    /**
+     * Broker端对重试的处理
+     */
     protected RemotingCommand consumerSendMsgBack(final ChannelHandlerContext ctx, final RemotingCommand request)
         throws RemotingCommandException {
         final RemotingCommand response = RemotingCommand.createResponseCommand(null);
@@ -128,7 +131,9 @@ public abstract class AbstractSendMessageProcessor implements NettyRequestProces
             return response;
         }
 
+        // 1、新的Topic名："%RETRY%"+ group
         String newTopic = MixAll.getRetryTopic(requestHeader.getGroup());
+        // 重试队列数为1
         int queueIdInt = this.random.nextInt(subscriptionGroupConfig.getRetryQueueNums());
 
         int topicSysFlag = 0;
@@ -161,14 +166,17 @@ public abstract class AbstractSendMessageProcessor implements NettyRequestProces
             return response;
         }
 
+        // 重试主题
         final String retryTopic = msgExt.getProperty(MessageConst.PROPERTY_RETRY_TOPIC);
         if (null == retryTopic) {
             MessageAccessor.putProperty(msgExt, MessageConst.PROPERTY_RETRY_TOPIC, msgExt.getTopic());
         }
         msgExt.setWaitStoreMsgOK(false);
 
+        // 2、都是为0
         int delayLevel = requestHeader.getDelayLevel();
 
+        // 3、消息重试次数：重试几次这里存的就是第几次
         int maxReconsumeTimes = subscriptionGroupConfig.getRetryMaxTimes();
         if (request.getVersion() >= MQVersion.Version.V3_4_9.ordinal()) {
             Integer times = requestHeader.getMaxReconsumeTimes();
@@ -177,7 +185,9 @@ public abstract class AbstractSendMessageProcessor implements NettyRequestProces
             }
         }
 
+        // 死信队列
         boolean isDLQ = false;
+        // 4、如果超过最大重试次数（默认为16）
         if (msgExt.getReconsumeTimes() >= maxReconsumeTimes
             || delayLevel < 0) {
 
@@ -189,7 +199,9 @@ public abstract class AbstractSendMessageProcessor implements NettyRequestProces
             BrokerMetricsManager.sendToDlqMessages.add(1, attributes);
 
             isDLQ = true;
+            // 5、更改Topic 名为死信队列名："%DLQ%" + group
             newTopic = MixAll.getDLQTopic(requestHeader.getGroup());
+            // 6、默认死信队列数为1
             queueIdInt = randomQueueId(DLQ_NUMS_PER_GROUP);
 
             // Create DLQ topic to master broker
@@ -204,6 +216,7 @@ public abstract class AbstractSendMessageProcessor implements NettyRequestProces
             }
             msgExt.setDelayTimeLevel(0);
         } else {
+            // 7、delayLevel 其实都为0，所以这里就相当于是重试次数 +3
             if (0 == delayLevel) {
                 delayLevel = 3 + msgExt.getReconsumeTimes();
             }
@@ -211,6 +224,7 @@ public abstract class AbstractSendMessageProcessor implements NettyRequestProces
             msgExt.setDelayTimeLevel(delayLevel);
         }
 
+        // 8、新建消息，准备存到CommitLog中作为新消息
         MessageExtBrokerInner msgInner = new MessageExtBrokerInner();
         msgInner.setTopic(newTopic);
         msgInner.setBody(msgExt.getBody());
@@ -224,6 +238,7 @@ public abstract class AbstractSendMessageProcessor implements NettyRequestProces
         msgInner.setBornTimestamp(msgExt.getBornTimestamp());
         msgInner.setBornHost(msgExt.getBornHost());
         msgInner.setStoreHost(this.getStoreHost());
+        // 8-1、重试次数+1。新消息被消费者消费时就会传上来，到第4步进行比较
         msgInner.setReconsumeTimes(msgExt.getReconsumeTimes() + 1);
 
         String originMsgId = MessageAccessor.getOriginMessageId(msgExt);
@@ -232,6 +247,7 @@ public abstract class AbstractSendMessageProcessor implements NettyRequestProces
 
         boolean succeeded = false;
 
+        // 9、作为新消息存到CommitLog中
         // Put retry topic to master message store
         PutMessageResult putMessageResult = masterBroker.getMessageStore().putMessage(msgInner);
         if (putMessageResult != null) {

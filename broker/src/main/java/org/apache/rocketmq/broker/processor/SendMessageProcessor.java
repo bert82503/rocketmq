@@ -85,6 +85,7 @@ public class SendMessageProcessor extends AbstractSendMessageProcessor implement
         SendMessageContext sendMessageContext;
         switch (request.getCode()) {
             case RequestCode.CONSUMER_SEND_MSG_BACK:
+                // Broker端对重试的处理
                 return this.consumerSendMsgBack(ctx, request);
             default:
                 SendMessageRequestHeader requestHeader = parseRequestHeader(request);
