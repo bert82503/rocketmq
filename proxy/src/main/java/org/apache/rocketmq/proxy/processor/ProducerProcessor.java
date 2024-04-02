@@ -34,12 +34,12 @@ import org.apache.rocketmq.common.message.MessageDecoder;
 import org.apache.rocketmq.common.message.MessageId;
 import org.apache.rocketmq.common.sysflag.MessageSysFlag;
 import org.apache.rocketmq.common.topic.TopicValidator;
+import org.apache.rocketmq.common.utils.FutureUtils;
 import org.apache.rocketmq.logging.org.slf4j.Logger;
 import org.apache.rocketmq.logging.org.slf4j.LoggerFactory;
 import org.apache.rocketmq.proxy.common.ProxyContext;
 import org.apache.rocketmq.proxy.common.ProxyException;
 import org.apache.rocketmq.proxy.common.ProxyExceptionCode;
-import org.apache.rocketmq.proxy.common.utils.FutureUtils;
 import org.apache.rocketmq.proxy.config.ConfigurationManager;
 import org.apache.rocketmq.proxy.processor.validator.DefaultTopicMessageTypeValidator;
 import org.apache.rocketmq.proxy.processor.validator.TopicMessageTypeValidator;
@@ -66,6 +66,8 @@ public class ProducerProcessor extends AbstractProcessor {
     public CompletableFuture<List<SendResult>> sendMessage(ProxyContext ctx, QueueSelector queueSelector,
         String producerGroup, int sysFlag, List<Message> messageList, long timeoutMillis) {
         CompletableFuture<List<SendResult>> future = new CompletableFuture<>();
+        long beginTimestampFirst = System.currentTimeMillis();
+        AddressableMessageQueue messageQueue = null;
         try {
             Message message = messageList.get(0);
             String topic = message.getTopic();
@@ -79,7 +81,7 @@ public class ProducerProcessor extends AbstractProcessor {
                     }
                 }
             }
-            AddressableMessageQueue messageQueue = queueSelector.select(ctx,
+            messageQueue = queueSelector.select(ctx,
                 this.serviceManager.getTopicRouteService().getCurrentMessageQueueView(ctx, topic));
             if (messageQueue == null) {
                 throw new ProxyException(ProxyExceptionCode.FORBIDDEN, "no writable queue");
@@ -90,6 +92,7 @@ public class ProducerProcessor extends AbstractProcessor {
             }
             SendMessageRequestHeader requestHeader = buildSendMessageRequestHeader(messageList, producerGroup, sysFlag, messageQueue.getQueueId());
 
+            AddressableMessageQueue finalMessageQueue = messageQueue;
             future = this.serviceManager.getMessageService().sendMessage(
                 ctx,
                 messageQueue,
@@ -102,11 +105,19 @@ public class ProducerProcessor extends AbstractProcessor {
                         if (SendStatus.SEND_OK.equals(sendResult.getSendStatus()) &&
                             tranType == MessageSysFlag.TRANSACTION_PREPARED_TYPE &&
                             StringUtils.isNotBlank(sendResult.getTransactionId())) {
-                            fillTransactionData(ctx, producerGroup, messageQueue, sendResult, messageList);
+                            fillTransactionData(ctx, producerGroup, finalMessageQueue, sendResult, messageList);
                         }
                     }
                     return sendResultList;
-                }, this.executor);
+                }, this.executor)
+                    .whenComplete((result, exception) -> {
+                        long endTimestamp = System.currentTimeMillis();
+                        if (exception != null) {
+                            this.serviceManager.getTopicRouteService().updateFaultItem(finalMessageQueue.getBrokerName(), endTimestamp - beginTimestampFirst, true, false);
+                        } else {
+                            this.serviceManager.getTopicRouteService().updateFaultItem(finalMessageQueue.getBrokerName(),endTimestamp - beginTimestampFirst, false, true);
+                        }
+                    });
         } catch (Throwable t) {
             future.completeExceptionally(t);
         }
@@ -124,6 +135,7 @@ public class ProducerProcessor extends AbstractProcessor {
             this.serviceManager.getTransactionService().addTransactionDataByBrokerName(
                 ctx,
                 messageQueue.getBrokerName(),
+                messageList.get(0).getTopic(),
                 producerGroup,
                 sendResult.getQueueOffset(),
                 id.getOffset(),

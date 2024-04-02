@@ -76,6 +76,8 @@ public class MixAll {
     public static final String CID_ONSAPI_OWNER_GROUP = "CID_ONSAPI_OWNER";
     public static final String CID_ONSAPI_PULL_GROUP = "CID_ONSAPI_PULL";
     public static final String CID_RMQ_SYS_PREFIX = "CID_RMQ_SYS_";
+    public static final String IS_SUPPORT_HEART_BEAT_V2 = "IS_SUPPORT_HEART_BEAT_V2";
+    public static final String IS_SUB_CHANGE = "IS_SUB_CHANGE";
     public static final List<String> LOCAL_INET_ADDRESS = getLocalInetAddress();
     public static final String LOCALHOST = localhost();
     public static final String DEFAULT_CHARSET = "UTF-8";
@@ -97,6 +99,7 @@ public class MixAll {
     public static final String ACL_CONF_TOOLS_FILE = "/conf/tools.yml";
     public static final String REPLY_MESSAGE_FLAG = "reply";
     public static final String LMQ_PREFIX = "%LMQ%";
+    public static final long LMQ_QUEUE_ID = 0;
     public static final String MULTI_DISPATCH_QUEUE_SPLITTER = ",";
     public static final String REQ_T = "ReqT";
     public static final String ROCKETMQ_ZONE_ENV = "ROCKETMQ_ZONE";
@@ -105,6 +108,8 @@ public class MixAll {
     public static final String ROCKETMQ_ZONE_MODE_PROPERTY = "rocketmq.zone.mode";
     public static final String ZONE_NAME = "__ZONE_NAME";
     public static final String ZONE_MODE = "__ZONE_MODE";
+    public final static String RPC_REQUEST_HEADER_NAMESPACED_FIELD = "nsd";
+    public final static String RPC_REQUEST_HEADER_NAMESPACE_FIELD = "ns";
 
     private static final Logger log = LoggerFactory.getLogger(LoggerName.COMMON_LOGGER_NAME);
     public static final String LOGICAL_QUEUE_MOCK_BROKER_PREFIX = "__syslo__";
@@ -373,6 +378,7 @@ public class MixAll {
                             } else if (cn.equals("float") || cn.equals("Float")) {
                                 arg = Float.parseFloat(property);
                             } else if (cn.equals("String")) {
+                                property = property.trim();
                                 arg = property;
                             } else {
                                 continue;
@@ -457,7 +463,9 @@ public class MixAll {
         if (!candidatesHost.isEmpty()) {
             return candidatesHost.get(0);
         }
-        return null;
+
+        // Fallback to loopback 
+        return localhost();
     }
 
     public static boolean compareAndIncreaseOnly(final AtomicLong target, final long value) {
@@ -489,6 +497,7 @@ public class MixAll {
     public static int compareLong(long x, long y) {
         return Long.compare(x, y);
     }
+
     public static boolean isLmq(String lmqMetaData) {
         return lmqMetaData != null && lmqMetaData.startsWith(LMQ_PREFIX);
     }

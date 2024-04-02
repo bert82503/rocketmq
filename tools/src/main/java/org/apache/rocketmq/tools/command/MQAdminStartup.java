@@ -29,9 +29,20 @@ import org.apache.rocketmq.remoting.protocol.RemotingCommand;
 import org.apache.rocketmq.srvutil.ServerUtil;
 import org.apache.rocketmq.tools.command.acl.ClusterAclConfigVersionListSubCommand;
 import org.apache.rocketmq.tools.command.acl.DeleteAccessConfigSubCommand;
-import org.apache.rocketmq.tools.command.acl.GetAccessConfigSubCommand;
 import org.apache.rocketmq.tools.command.acl.UpdateAccessConfigSubCommand;
 import org.apache.rocketmq.tools.command.acl.UpdateGlobalWhiteAddrSubCommand;
+import org.apache.rocketmq.tools.command.auth.CopyAclsSubCommand;
+import org.apache.rocketmq.tools.command.auth.CopyUsersSubCommand;
+import org.apache.rocketmq.tools.command.auth.CreateAclSubCommand;
+import org.apache.rocketmq.tools.command.auth.CreateUserSubCommand;
+import org.apache.rocketmq.tools.command.auth.DeleteAclSubCommand;
+import org.apache.rocketmq.tools.command.auth.DeleteUserSubCommand;
+import org.apache.rocketmq.tools.command.auth.GetAclSubCommand;
+import org.apache.rocketmq.tools.command.auth.GetUserSubCommand;
+import org.apache.rocketmq.tools.command.auth.ListAclSubCommand;
+import org.apache.rocketmq.tools.command.auth.ListUserSubCommand;
+import org.apache.rocketmq.tools.command.auth.UpdateAclSubCommand;
+import org.apache.rocketmq.tools.command.auth.UpdateUserSubCommand;
 import org.apache.rocketmq.tools.command.broker.BrokerConsumeStatsSubCommad;
 import org.apache.rocketmq.tools.command.broker.BrokerStatusSubCommand;
 import org.apache.rocketmq.tools.command.broker.CleanExpiredCQSubCommand;
@@ -66,6 +77,7 @@ import org.apache.rocketmq.tools.command.controller.ReElectMasterSubCommand;
 import org.apache.rocketmq.tools.command.controller.UpdateControllerConfigSubCommand;
 import org.apache.rocketmq.tools.command.export.ExportConfigsCommand;
 import org.apache.rocketmq.tools.command.export.ExportMetadataCommand;
+import org.apache.rocketmq.tools.command.export.ExportMetadataInRocksDBCommand;
 import org.apache.rocketmq.tools.command.export.ExportMetricsCommand;
 import org.apache.rocketmq.tools.command.ha.GetSyncStateSetSubCommand;
 import org.apache.rocketmq.tools.command.ha.HAStatusSubCommand;
@@ -247,7 +259,6 @@ public class MQAdminStartup {
         initCommand(new DeleteAccessConfigSubCommand());
         initCommand(new ClusterAclConfigVersionListSubCommand());
         initCommand(new UpdateGlobalWhiteAddrSubCommand());
-        initCommand(new GetAccessConfigSubCommand());
 
         initCommand(new UpdateStaticTopicSubCommand());
         initCommand(new RemappingStaticTopicSubCommand());
@@ -255,6 +266,7 @@ public class MQAdminStartup {
         initCommand(new ExportMetadataCommand());
         initCommand(new ExportConfigsCommand());
         initCommand(new ExportMetricsCommand());
+        initCommand(new ExportMetadataInRocksDBCommand());
 
         initCommand(new HAStatusSubCommand());
 
@@ -272,13 +284,27 @@ public class MQAdminStartup {
         initCommand(new UpdateColdDataFlowCtrGroupConfigSubCommand());
         initCommand(new RemoveColdDataFlowCtrGroupConfigSubCommand());
         initCommand(new CommitLogSetReadAheadSubCommand());
+
+        initCommand(new CreateUserSubCommand());
+        initCommand(new UpdateUserSubCommand());
+        initCommand(new DeleteUserSubCommand());
+        initCommand(new GetUserSubCommand());
+        initCommand(new ListUserSubCommand());
+        initCommand(new CopyUsersSubCommand());
+
+        initCommand(new CreateAclSubCommand());
+        initCommand(new UpdateAclSubCommand());
+        initCommand(new DeleteAclSubCommand());
+        initCommand(new GetAclSubCommand());
+        initCommand(new ListAclSubCommand());
+        initCommand(new CopyAclsSubCommand());
     }
 
     private static void printHelp() {
         System.out.printf("The most commonly used mqadmin commands are:%n");
 
         for (SubCommand cmd : SUB_COMMANDS) {
-            System.out.printf("   %-25s %s%n", cmd.commandName(), cmd.commandDesc());
+            System.out.printf("   %-35s %s%n", cmd.commandName(), cmd.commandDesc());
         }
 
         System.out.printf("%nSee 'mqadmin help <command>' for more information on a specific command.%n");

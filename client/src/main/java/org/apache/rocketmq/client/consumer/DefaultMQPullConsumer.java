@@ -89,23 +89,21 @@ public class DefaultMQPullConsumer extends ClientConfig implements MQPullConsume
     private int maxReconsumeTimes = 16;
 
     public DefaultMQPullConsumer() {
-        this(null, MixAll.DEFAULT_CONSUMER_GROUP, null);
+        this(MixAll.DEFAULT_CONSUMER_GROUP, null);
     }
 
     public DefaultMQPullConsumer(final String consumerGroup) {
-        this(null, consumerGroup, null);
+        this(consumerGroup, null);
     }
 
     public DefaultMQPullConsumer(RPCHook rpcHook) {
-        this(null, MixAll.DEFAULT_CONSUMER_GROUP, rpcHook);
+        this(MixAll.DEFAULT_CONSUMER_GROUP, rpcHook);
     }
 
     public DefaultMQPullConsumer(final String consumerGroup, RPCHook rpcHook) {
-        this(null, consumerGroup, rpcHook);
-    }
-
-    public DefaultMQPullConsumer(final String namespace, final String consumerGroup) {
-        this(namespace, consumerGroup, null);
+        this.consumerGroup = consumerGroup;
+        this.enableStreamRequestType = true;
+        defaultMQPullConsumerImpl = new DefaultMQPullConsumerImpl(this, rpcHook);
     }
 
     /**
@@ -175,16 +173,6 @@ public class DefaultMQPullConsumer extends ClientConfig implements MQPullConsume
     @Override
     public long earliestMsgStoreTime(MessageQueue mq) throws MQClientException {
         return this.defaultMQPullConsumerImpl.earliestMsgStoreTime(queueWithNamespace(mq));
-    }
-
-    /**
-     * This method will be removed in a certain version after April 5, 2020, so please do not use this method.
-     */
-    @Deprecated
-    @Override
-    public MessageExt viewMessage(String offsetMsgId) throws RemotingException, MQBrokerException,
-        InterruptedException, MQClientException {
-        return this.defaultMQPullConsumerImpl.viewMessage(offsetMsgId);
     }
 
     /**
@@ -407,7 +395,7 @@ public class DefaultMQPullConsumer extends ClientConfig implements MQPullConsume
         String uniqKey) throws RemotingException, MQBrokerException, InterruptedException, MQClientException {
         try {
             MessageDecoder.decodeMessageId(uniqKey);
-            return this.viewMessage(uniqKey);
+            return this.defaultMQPullConsumerImpl.viewMessage(topic, uniqKey);
         } catch (Exception e) {
             // Ignore
         }

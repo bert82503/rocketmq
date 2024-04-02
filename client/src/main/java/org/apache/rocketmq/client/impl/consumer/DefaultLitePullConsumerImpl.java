@@ -632,6 +632,7 @@ public class DefaultLitePullConsumerImpl implements MQConsumerInner {
                     this.executeHookBefore(consumeMessageContext);
                     consumeMessageContext.setStatus(ConsumeConcurrentlyStatus.CONSUME_SUCCESS.toString());
                     consumeMessageContext.setSuccess(true);
+                    consumeMessageContext.setAccessChannel(defaultLitePullConsumer.getAccessChannel());
                     this.executeHookAfter(consumeMessageContext);
                 }
                 consumeRequest.getProcessQueue().setLastConsumeTimestamp(System.currentTimeMillis());
@@ -900,7 +901,9 @@ public class DefaultLitePullConsumerImpl implements MQConsumerInner {
                 if ((long) consumeRequestCache.size() * defaultLitePullConsumer.getPullBatchSize() > defaultLitePullConsumer.getPullThresholdForAll()) {
                     scheduledThreadPoolExecutor.schedule(this, PULL_TIME_DELAY_MILLS_WHEN_CACHE_FLOW_CONTROL, TimeUnit.MILLISECONDS);
                     if ((consumeRequestFlowControlTimes++ % 1000) == 0) {
-                        log.warn("The consume request count exceeds threshold {}, so do flow control, consume request count={}, flowControlTimes={}", consumeRequestCache.size(), consumeRequestFlowControlTimes);
+                        log.warn("The consume request count exceeds threshold {}, so do flow control, consume request count={}, flowControlTimes={}",
+                                (int)Math.ceil((double)defaultLitePullConsumer.getPullThresholdForAll() / defaultLitePullConsumer.getPullBatchSize()),
+                                consumeRequestCache.size(), consumeRequestFlowControlTimes);
                     }
                     return;
                 }
@@ -1118,6 +1121,14 @@ public class DefaultLitePullConsumerImpl implements MQConsumerInner {
         if (this.rebalanceImpl != null) {
             this.rebalanceImpl.doRebalance(false);
         }
+    }
+
+    @Override
+    public boolean tryRebalance() {
+        if (this.rebalanceImpl != null) {
+            return this.rebalanceImpl.doRebalance(false);
+        }
+        return false;
     }
 
     @Override
