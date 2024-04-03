@@ -103,6 +103,9 @@ public class MessageConst {
      * 消息ID：消息的唯一标识，集群内每条消息的ID全局唯一
      */
     public static final String PROPERTY_UNIQ_CLIENT_MESSAGE_ID_KEYIDX = "UNIQ_KEY";
+    /**
+     * 拓展的唯一信息
+     */
     public static final String PROPERTY_EXTEND_UNIQ_INFO = "EXTEND_UNIQ_INFO";
     /**
      * 最大重新消费次数
@@ -185,21 +188,30 @@ public class MessageConst {
      * 【定时/延时消息】
      */
     public static final String PROPERTY_TIMER_DELIVER_MS = "TIMER_DELIVER_MS";
+    /**
+     * 出生主机
+     */
     public static final String PROPERTY_BORN_HOST = "__BORNHOST";
+    /**
+     * 出生时间
+     */
     public static final String PROPERTY_BORN_TIMESTAMP = "BORN_TIMESTAMP";
 
     /**
      * property which name starts with "__RMQ.TRANSIENT." is called transient one that will not stored in broker disks.
+     * 短暂的属性名
      */
     public static final String PROPERTY_TRANSIENT_PREFIX = "__RMQ.TRANSIENT.";
 
     /**
      * the transient property key of topicSysFlag (set by client when pulling messages)
+     * 主题系统标识
      */
     public static final String PROPERTY_TRANSIENT_TOPIC_CONFIG = PROPERTY_TRANSIENT_PREFIX + "TOPIC_SYS_FLAG";
 
     /**
      * the transient property key of groupSysFlag (set by client when pulling messages)
+     * 分组系统标识
      */
     public static final String PROPERTY_TRANSIENT_GROUP_CONFIG = PROPERTY_TRANSIENT_PREFIX + "GROUP_SYS_FLAG";
 
@@ -209,7 +221,7 @@ public class MessageConst {
     public static final String KEY_SEPARATOR = " ";
 
     /**
-     * 系统保留的属性Key集合
+     * 系统保留的属性key集合
      */
     public static final HashSet<String> STRING_HASH_SET = new HashSet<>(64);
 
@@ -221,6 +233,9 @@ public class MessageConst {
      * 定时器出去队列时间
      */
     public static final String PROPERTY_TIMER_DEQUEUE_MS = "TIMER_DEQUEUE_MS";
+    /**
+     * 定时器轮询次数
+     */
     public static final String PROPERTY_TIMER_ROLL_TIMES = "TIMER_ROLL_TIMES";
     public static final String PROPERTY_TIMER_OUT_MS = "TIMER_OUT_MS";
     public static final String PROPERTY_TIMER_DEL_UNIQKEY = "TIMER_DEL_UNIQKEY";
@@ -291,4 +306,5 @@ public class MessageConst {
         STRING_HASH_SET.add(PROPERTY_DLQ_ORIGIN_TOPIC);
         STRING_HASH_SET.add(PROPERTY_DLQ_ORIGIN_MESSAGE_ID);
     }
+
 }

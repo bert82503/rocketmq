@@ -19,7 +19,7 @@ package org.apache.rocketmq.common.sysflag;
 import org.apache.rocketmq.common.compression.CompressionType;
 
 /**
- * 消息系统标志
+ * 消息系统标识
  */
 public class MessageSysFlag {
 
@@ -34,11 +34,11 @@ public class MessageSysFlag {
      * | byte 4 |   |   |           |          |             |                  |                  |                  |
      */
     /**
-     * 消息解压缩标志
+     * 消息解压缩
      */
     public final static int COMPRESSED_FLAG = 0x1;
     /**
-     * 多个消息标签标志
+     * 多个消息标签
      */
     public final static int MULTI_TAGS_FLAG = 0x1 << 1;
     // 事务消息
@@ -68,11 +68,11 @@ public class MessageSysFlag {
     public final static int STOREHOSTADDRESS_V6_FLAG = 0x1 << 5;
     //Mark the flag for batch to avoid conflict
     /**
-     * 需要拆开包装标志
+     * 需要拆开包装
      */
     public final static int NEED_UNWRAP_FLAG = 0x1 << 6;
     /**
-     * 批处理消息标志
+     * 批处理消息
      */
     public final static int INNER_BATCH_FLAG = 0x1 << 7;
 
