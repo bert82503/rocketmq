@@ -20,24 +20,57 @@ package org.apache.rocketmq.remoting.protocol.subscription;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.rocketmq.common.MixAll;
 
+/**
+ * 订阅关系分组配置
+ */
 public class SubscriptionGroupConfig {
 
+    /**
+     * 分组名称
+     */
     private String groupName;
 
+    /**
+     * 消费开关
+     */
     private boolean consumeEnable = true;
+    /**
+     * 消费从最小位点开始的开关
+     */
     private boolean consumeFromMinEnable = true;
+    /**
+     * 消费广播消息的开关
+     */
     private boolean consumeBroadcastEnable = true;
+    /**
+     * 消费有序消息的开关
+     */
     private boolean consumeMessageOrderly = false;
 
+    /**
+     * 重试队列的数量
+     */
     private int retryQueueNums = 1;
 
+    /**
+     * 重试的最大次数
+     */
     private int retryMaxTimes = 16;
+    /**
+     * 分组重试策略
+     */
     private GroupRetryPolicy groupRetryPolicy = new GroupRetryPolicy();
 
+    /**
+     * 经纪人身份
+     */
     private long brokerId = MixAll.MASTER_ID;
 
     private long whichBrokerWhenConsumeSlowly = 1;
 
+    /**
+     * 通知消费者身份变更的开关
+     */
     private boolean notifyConsumerIdsChangedEnable = true;
 
     private int groupSysFlag = 0;
