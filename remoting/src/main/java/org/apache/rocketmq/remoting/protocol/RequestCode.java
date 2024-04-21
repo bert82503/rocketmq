@@ -17,10 +17,19 @@
 
 package org.apache.rocketmq.remoting.protocol;
 
+/**
+ * 请求命令编码
+ */
 public class RequestCode {
 
+    /**
+     * 发送消息
+     */
     public static final int SEND_MESSAGE = 10;
 
+    /**
+     * 拉取消息
+     */
     public static final int PULL_MESSAGE = 11;
 
     public static final int QUERY_MESSAGE = 12;

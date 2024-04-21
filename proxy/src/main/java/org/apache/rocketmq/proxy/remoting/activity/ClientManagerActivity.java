@@ -40,8 +40,14 @@ import org.apache.rocketmq.proxy.remoting.pipeline.RequestPipeline;
 import org.apache.rocketmq.remoting.exception.RemotingCommandException;
 import org.apache.rocketmq.remoting.protocol.RemotingCommand;
 
+/**
+ * 客户端管理器的远程处理活动
+ */
 public class ClientManagerActivity extends AbstractRemotingActivity {
 
+    /**
+     * 远程连接通道管理器
+     */
     private final RemotingChannelManager remotingChannelManager;
 
     public ClientManagerActivity(RequestPipeline requestPipeline, MessagingProcessor messagingProcessor,
@@ -52,7 +58,9 @@ public class ClientManagerActivity extends AbstractRemotingActivity {
     }
 
     protected void init() {
+        // 注册消费者身份变更监听器
         this.messagingProcessor.registerConsumerListener(new ConsumerIdsChangeListenerImpl());
+        // 注册提供者变更监听器
         this.messagingProcessor.registerProducerListener(new ProducerChangeListenerImpl());
     }
 
@@ -74,9 +82,11 @@ public class ClientManagerActivity extends AbstractRemotingActivity {
 
     protected RemotingCommand heartBeat(ChannelHandlerContext ctx, RemotingCommand request,
         ProxyContext context) {
+        // 心跳数据
         HeartbeatData heartbeatData = HeartbeatData.decode(request.getBody(), HeartbeatData.class);
         String clientId = heartbeatData.getClientID();
 
+        // 生产者数据的集合
         for (ProducerData data : heartbeatData.getProducerDataSet()) {
             ClientChannelInfo clientChannelInfo = new ClientChannelInfo(
                 this.remotingChannelManager.createProducerChannel(ctx.channel(), data.getGroupName(), clientId),
@@ -85,6 +95,7 @@ public class ClientManagerActivity extends AbstractRemotingActivity {
             messagingProcessor.registerProducer(context, data.getGroupName(), clientChannelInfo);
         }
 
+        // 消费者数据的集合
         for (ConsumerData data : heartbeatData.getConsumerDataSet()) {
             ClientChannelInfo clientChannelInfo = new ClientChannelInfo(
                 this.remotingChannelManager.createConsumerChannel(ctx.channel(), data.getGroupName(), clientId, data.getSubscriptionDataSet()),

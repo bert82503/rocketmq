@@ -45,10 +45,19 @@ public class BrokerConfig extends BrokerIdentity {
     private boolean recoverConcurrently = false;
 
     private int brokerPermission = PermName.PERM_READ | PermName.PERM_WRITE;
+    /**
+     * 默认的消息主题的队列数量
+     */
     private int defaultTopicQueueNums = 8;
+    /**
+     * 自动创建消息主题的开关
+     */
     @ImportantField
     private boolean autoCreateTopicEnable = true;
 
+    /**
+     * 集群消息主题的开关
+     */
     private boolean clusterTopicEnable = true;
 
     private boolean brokerTopicEnable = true;
@@ -98,12 +107,24 @@ public class BrokerConfig extends BrokerIdentity {
     @ImportantField
     private boolean fetchNamesrvAddrByAddressServer = false;
 
-    private int sendThreadPoolQueueCapacity = 10000;
+    /**
+     * 发送消息线程池的队列容量
+     */
+    private int sendThreadPoolQueueCapacity = 10_000;
     private int putThreadPoolQueueCapacity = 10000;
-    private int pullThreadPoolQueueCapacity = 100000;
+    /**
+     * 拉取消息线程池的队列容量
+     */
+    private int pullThreadPoolQueueCapacity = 100_000;
     private int litePullThreadPoolQueueCapacity = 100000;
-    private int ackThreadPoolQueueCapacity = 100000;
-    private int replyThreadPoolQueueCapacity = 10000;
+    /**
+     * ack消息线程池的队列容量
+     */
+    private int ackThreadPoolQueueCapacity = 100_000;
+    /**
+     * 重试消息线程池的队列容量
+     */
+    private int replyThreadPoolQueueCapacity = 10_000;
     private int queryThreadPoolQueueCapacity = 20000;
     private int clientManagerThreadPoolQueueCapacity = 1000000;
     private int consumerManagerThreadPoolQueueCapacity = 1000000;
