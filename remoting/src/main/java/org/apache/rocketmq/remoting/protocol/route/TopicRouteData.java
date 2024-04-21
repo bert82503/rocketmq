@@ -30,11 +30,26 @@ import java.util.concurrent.ConcurrentMap;
 import org.apache.rocketmq.remoting.protocol.RemotingSerializable;
 import org.apache.rocketmq.remoting.protocol.statictopic.TopicQueueMappingInfo;
 
+/**
+ * 消息主题路由数据
+ */
 public class TopicRouteData extends RemotingSerializable {
+    /**
+     * 有序消息主题引用
+     */
     private String orderTopicConf;
+    /**
+     * 消息队列数据列表
+     */
     private List<QueueData> queueDatas;
+    /**
+     * 经纪人数据列表
+     */
     private List<BrokerData> brokerDatas;
     private HashMap<String/* brokerAddr */, List<String>/* Filter Server */> filterServerTable;
+    /**
+     * 消息主题队列的映射信息
+     */
     //It could be null or empty
     private Map<String/*brokerName*/, TopicQueueMappingInfo> topicQueueMappingByBroker;
 
