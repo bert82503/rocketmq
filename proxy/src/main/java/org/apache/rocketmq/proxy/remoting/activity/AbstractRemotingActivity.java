@@ -41,8 +41,14 @@ import org.apache.rocketmq.remoting.protocol.RemotingCommand;
 import org.apache.rocketmq.remoting.protocol.RequestCode;
 import org.apache.rocketmq.remoting.protocol.ResponseCode;
 
+/**
+ * 抽象远程处理活动
+ */
 public abstract class AbstractRemotingActivity implements NettyRequestProcessor {
     protected final static Logger log = LoggerFactory.getLogger(LoggerName.PROXY_LOGGER_NAME);
+    /**
+     * 消息处理器
+     */
     protected final MessagingProcessor messagingProcessor;
     protected static final String BROKER_NAME_FIELD = "bname";
     protected static final String BROKER_NAME_FIELD_FOR_SEND_MESSAGE_V2 = "n";
@@ -54,6 +60,9 @@ public abstract class AbstractRemotingActivity implements NettyRequestProcessor 
             put(ProxyExceptionCode.TRANSACTION_DATA_NOT_FOUND, ResponseCode.SUCCESS);
         }
     };
+    /**
+     * 请求管道
+     */
     protected final RequestPipeline requestPipeline;
 
     public AbstractRemotingActivity(RequestPipeline requestPipeline, MessagingProcessor messagingProcessor) {
@@ -94,9 +103,12 @@ public abstract class AbstractRemotingActivity implements NettyRequestProcessor 
     public RemotingCommand processRequest(ChannelHandlerContext ctx, RemotingCommand request) throws Exception {
         ProxyContext context = createContext(ctx, request);
         try {
+            // 执行请求
             this.requestPipeline.execute(ctx, request, context);
+            // 处理请求
             RemotingCommand response = this.processRequest0(ctx, request, context);
             if (response != null) {
+                // 回写响应
                 writeResponse(ctx, context, request, response);
             }
             return null;
@@ -115,6 +127,7 @@ public abstract class AbstractRemotingActivity implements NettyRequestProcessor 
         ProxyContext context) throws Exception;
 
     protected ProxyContext createContext(ChannelHandlerContext ctx, RemotingCommand request) {
+        // 请求代理上下文
         ProxyContext context = ProxyContext.create();
         context.setAction("Remoting" + request.getCode())
             .setLanguage(request.getLanguage().name())
@@ -125,6 +138,7 @@ public abstract class AbstractRemotingActivity implements NettyRequestProcessor 
         return context;
     }
 
+    // 错误响应
     protected void writeErrResponse(ChannelHandlerContext ctx, final ProxyContext context,
         final RemotingCommand request, Throwable t) {
         t = ExceptionUtils.getRealException(t);
@@ -149,8 +163,10 @@ public abstract class AbstractRemotingActivity implements NettyRequestProcessor 
         }
     }
 
+    // 回写响应
     protected void writeResponse(ChannelHandlerContext ctx, final ProxyContext context,
         final RemotingCommand request, RemotingCommand response) {
+        // 回写响应
         writeResponse(ctx, context, request, response, null);
     }
 
@@ -167,7 +183,9 @@ public abstract class AbstractRemotingActivity implements NettyRequestProcessor 
 
         response.setOpaque(request.getOpaque());
         response.markResponseType();
+        // 区域ID
         response.addExtField(MessageConst.PROPERTY_MSG_REGION, config.getRegionId());
+        // 追踪开关
         response.addExtField(MessageConst.PROPERTY_TRACE_SWITCH, String.valueOf(config.isTraceOn()));
         if (t != null) {
             response.setRemark(t.getMessage());
