@@ -20,7 +20,13 @@
  */
 package org.apache.rocketmq.remoting.protocol.heartbeat;
 
+/**
+ * 生产者数据
+ */
 public class ProducerData {
+    /**
+     * 生产者分组名称
+     */
     private String groupName;
 
     public String getGroupName() {
