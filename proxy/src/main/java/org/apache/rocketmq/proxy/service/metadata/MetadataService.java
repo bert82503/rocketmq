@@ -20,9 +20,20 @@ package org.apache.rocketmq.proxy.service.metadata;
 import org.apache.rocketmq.common.attribute.TopicMessageType;
 import org.apache.rocketmq.remoting.protocol.subscription.SubscriptionGroupConfig;
 
+/**
+ * 消息元数据服务
+ */
 public interface MetadataService {
 
+    /**
+     * 主题所支持的消息类型
+     * @param topic 消息主题
+     */
     TopicMessageType getTopicMessageType(String topic);
 
+    /**
+     * 订阅关系分组配置
+     * @param group 消息分组
+     */
     SubscriptionGroupConfig getSubscriptionGroupConfig(String group);
 }
