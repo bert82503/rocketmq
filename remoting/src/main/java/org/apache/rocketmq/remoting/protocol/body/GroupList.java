@@ -19,6 +19,9 @@ package org.apache.rocketmq.remoting.protocol.body;
 import java.util.HashSet;
 import org.apache.rocketmq.remoting.protocol.RemotingSerializable;
 
+/**
+ * 消息分组列表
+ */
 public class GroupList extends RemotingSerializable {
     private HashSet<String> groupList = new HashSet<>();
 

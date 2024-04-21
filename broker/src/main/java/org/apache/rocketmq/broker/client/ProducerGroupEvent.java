@@ -16,13 +16,18 @@
  */
 package org.apache.rocketmq.broker.client;
 
+/**
+ * 生产者分组事件
+ */
 public enum ProducerGroupEvent {
     /**
      * The group of producer is unregistered.
+     * 生产者分组取消注册。
      */
     GROUP_UNREGISTER,
     /**
      * The client of this producer is unregistered.
+     * 生产者的客户端取消注册。
      */
     CLIENT_UNREGISTER
 }

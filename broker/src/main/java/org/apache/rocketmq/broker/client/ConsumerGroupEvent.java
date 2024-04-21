@@ -16,26 +16,34 @@
  */
 package org.apache.rocketmq.broker.client;
 
+/**
+ * 消费者分组事件
+ */
 public enum ConsumerGroupEvent {
 
     /**
      * Some consumers in the group are changed.
+     * 分组中的一些消费者发生了变化。
      */
     CHANGE,
     /**
      * The group of consumer is unregistered.
+     * 消费者分组取消注册。
      */
     UNREGISTER,
     /**
      * The group of consumer is registered.
+     * 消费者分组已注册。
      */
     REGISTER,
     /**
      * The client of this consumer is new registered.
+     * 这个消费者的客户端是新注册的。
      */
     CLIENT_REGISTER,
     /**
      * The client of this consumer is unregistered.
+     * 这个消费者的客户端取消注册。
      */
     CLIENT_UNREGISTER
 }
