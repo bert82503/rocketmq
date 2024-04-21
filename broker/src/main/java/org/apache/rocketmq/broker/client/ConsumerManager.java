@@ -38,12 +38,21 @@ import org.apache.rocketmq.remoting.protocol.heartbeat.MessageModel;
 import org.apache.rocketmq.remoting.protocol.heartbeat.SubscriptionData;
 import org.apache.rocketmq.store.stats.BrokerStatsManager;
 
+/**
+ * 消费者的管理者
+ */
 public class ConsumerManager {
     private static final Logger LOGGER = LoggerFactory.getLogger(LoggerName.BROKER_LOGGER_NAME);
+    /**
+     * 消费者分组信息的映射表
+     */
     private final ConcurrentMap<String, ConsumerGroupInfo> consumerTable =
         new ConcurrentHashMap<>(1024);
     private final ConcurrentMap<String, ConsumerGroupInfo> consumerCompensationTable =
         new ConcurrentHashMap<>(1024);
+    /**
+     * 消费者身份变更监听器的列表
+     */
     private final List<ConsumerIdsChangeListener> consumerIdsChangeListenerList = new CopyOnWriteArrayList<>();
     protected final BrokerStatsManager brokerStatsManager;
     private final long channelExpiredTimeout;
@@ -79,6 +88,8 @@ public class ConsumerManager {
         }
         return null;
     }
+
+    // 查找订阅关系数据
 
     public SubscriptionData findSubscriptionData(final String group, final String topic) {
         return findSubscriptionData(group, topic, true);
