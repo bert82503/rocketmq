@@ -21,11 +21,29 @@ import java.util.Date;
 import org.apache.rocketmq.common.UtilAll;
 import org.apache.rocketmq.common.message.MessageQueue;
 
+/**
+ * 消息队列的时间跨度
+ */
 public class QueueTimeSpan {
+    /**
+     * 消息队列
+     */
     private MessageQueue messageQueue;
+    /**
+     * 最小时间戳
+     */
     private long minTimeStamp;
+    /**
+     * 最大时间戳
+     */
     private long maxTimeStamp;
+    /**
+     * 消费时间戳
+     */
     private long consumeTimeStamp;
+    /**
+     * 延迟时间
+     */
     private long delayTime;
 
     public MessageQueue getMessageQueue() {
