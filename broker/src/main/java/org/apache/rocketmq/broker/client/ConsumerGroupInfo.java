@@ -32,16 +32,40 @@ import org.apache.rocketmq.remoting.protocol.heartbeat.ConsumeType;
 import org.apache.rocketmq.remoting.protocol.heartbeat.MessageModel;
 import org.apache.rocketmq.remoting.protocol.heartbeat.SubscriptionData;
 
+/**
+ * 消费者分组信息
+ */
 public class ConsumerGroupInfo {
     private static final Logger log = LoggerFactory.getLogger(LoggerName.BROKER_LOGGER_NAME);
+    /**
+     * 分组名称
+     */
     private final String groupName;
+    /**
+     * {@code <消息主题, 订阅关系数据>}的映射表
+     */
     private final ConcurrentMap<String/* Topic */, SubscriptionData> subscriptionTable =
         new ConcurrentHashMap<>();
+    /**
+     * 客户端通道信息的映射表
+     */
     private final ConcurrentMap<Channel, ClientChannelInfo> channelInfoTable =
         new ConcurrentHashMap<>(16);
+    /**
+     * 消费类型
+     */
     private volatile ConsumeType consumeType;
+    /**
+     * 消息模型
+     */
     private volatile MessageModel messageModel;
+    /**
+     * 消费从哪里开始
+     */
     private volatile ConsumeFromWhere consumeFromWhere;
+    /**
+     * 最后更新的时间戳
+     */
     private volatile long lastUpdateTimestamp = System.currentTimeMillis();
 
     public ConsumerGroupInfo(String groupName, ConsumeType consumeType, MessageModel messageModel,
