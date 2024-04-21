@@ -37,6 +37,7 @@ public class MessageQueue implements Comparable<MessageQueue>, Serializable {
     private String topic;
     /**
      * 消息中转角色，负责存储消息，转发消息。
+     * 经纪人名称
      */
     private String brokerName;
     /**

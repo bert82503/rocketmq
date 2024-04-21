@@ -20,9 +20,18 @@ import com.google.common.base.MoreObjects;
 import java.util.Objects;
 import org.apache.rocketmq.common.message.MessageQueue;
 
+/**
+ * 经纪人地址可访问的消息队列
+ */
 public class AddressableMessageQueue implements Comparable<AddressableMessageQueue> {
 
+    /**
+     * 消息队列
+     */
     private final MessageQueue messageQueue;
+    /**
+     * 经纪人地址
+     */
     private final String brokerAddr;
 
     public AddressableMessageQueue(MessageQueue messageQueue, String brokerAddr) {
