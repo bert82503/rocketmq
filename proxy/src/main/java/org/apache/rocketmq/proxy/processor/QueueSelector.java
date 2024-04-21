@@ -20,6 +20,9 @@ import org.apache.rocketmq.proxy.common.ProxyContext;
 import org.apache.rocketmq.proxy.service.route.AddressableMessageQueue;
 import org.apache.rocketmq.proxy.service.route.MessageQueueView;
 
+/**
+ * 消息队列选择器
+ */
 public interface QueueSelector {
 
     AddressableMessageQueue select(ProxyContext ctx, MessageQueueView messageQueueView);
