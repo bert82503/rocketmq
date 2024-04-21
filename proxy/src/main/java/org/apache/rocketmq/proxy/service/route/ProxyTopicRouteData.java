@@ -26,11 +26,26 @@ import org.apache.rocketmq.remoting.protocol.route.BrokerData;
 import org.apache.rocketmq.remoting.protocol.route.QueueData;
 import org.apache.rocketmq.remoting.protocol.route.TopicRouteData;
 
+/**
+ * 代理主题的路由数据
+ */
 public class ProxyTopicRouteData {
 
+    /**
+     * 代理经纪人数据
+     */
     public static class ProxyBrokerData {
+        /**
+         * 集群
+         */
         private String cluster;
+        /**
+         * 经纪人名称
+         */
         private String brokerName;
+        /**
+         * {@code <经纪人身份, 地址列表>}的映射表
+         */
         private Map<Long/* brokerId */, List<Address>/* broker address */> brokerAddrs = new HashMap<>();
 
         public String getCluster() {
@@ -72,7 +87,13 @@ public class ProxyTopicRouteData {
         }
     }
 
+    /**
+     * 消息队列数据列表
+     */
     private List<QueueData> queueDatas = new ArrayList<>();
+    /**
+     * 代理主题的路由数据列表
+     */
     private List<ProxyBrokerData> brokerDatas = new ArrayList<>();
 
     public List<QueueData> getQueueDatas() {
