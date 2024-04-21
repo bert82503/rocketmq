@@ -22,6 +22,9 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
+/**
+ * 远程通信数据的序列化方式，基于fastjson实现的json序列化
+ */
 public abstract class RemotingSerializable {
     private final static Charset CHARSET_UTF8 = StandardCharsets.UTF_8;
 
