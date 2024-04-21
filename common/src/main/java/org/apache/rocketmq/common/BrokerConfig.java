@@ -23,11 +23,20 @@ import org.apache.rocketmq.common.message.MessageRequestMode;
 import org.apache.rocketmq.common.topic.TopicValidator;
 import org.apache.rocketmq.common.utils.NetworkUtil;
 
+/**
+ * 消息中转角色的配置
+ */
 public class BrokerConfig extends BrokerIdentity {
 
+    /**
+     * 消息中转角色的配置路径
+     */
     private String brokerConfigPath = null;
 
     private String rocketmqHome = System.getProperty(MixAll.ROCKETMQ_HOME_PROPERTY, System.getenv(MixAll.ROCKETMQ_HOME_ENV));
+    /**
+     * 名称服务的地址
+     */
     @ImportantField
     private String namesrvAddr = System.getProperty(MixAll.NAMESRV_ADDR_PROPERTY, System.getenv(MixAll.NAMESRV_ADDR_ENV));
 
@@ -44,6 +53,9 @@ public class BrokerConfig extends BrokerIdentity {
     @ImportantField
     private boolean recoverConcurrently = false;
 
+    /**
+     * 许可
+     */
     private int brokerPermission = PermName.PERM_READ | PermName.PERM_WRITE;
     /**
      * 默认的消息主题的队列数量
@@ -60,24 +72,43 @@ public class BrokerConfig extends BrokerIdentity {
      */
     private boolean clusterTopicEnable = true;
 
+    /**
+     * 消息中转角色的主题开关
+     */
     private boolean brokerTopicEnable = true;
+    /**
+     * 自动创建订阅关系的分组
+     */
     @ImportantField
     private boolean autoCreateSubscriptionGroup = true;
     private String messageStorePlugIn = "";
 
+    /**
+     * CPU处理器的数量
+     */
     private static final int PROCESSOR_NUMBER = Runtime.getRuntime().availableProcessors();
+    /**
+     * 消息追踪的主题名称
+     */
     @ImportantField
     private String msgTraceTopicName = TopicValidator.RMQ_SYS_TRACE_TOPIC;
+    /**
+     * 消息追踪主题的开关
+     */
     @ImportantField
     private boolean traceTopicEnable = false;
     /**
      * thread numbers for send message thread pool.
+     * 发送消息的线程池数量
      */
     private int sendMessageThreadPoolNums = Math.min(PROCESSOR_NUMBER, 4);
     private int putMessageFutureThreadPoolNums = Math.min(PROCESSOR_NUMBER, 4);
     private int pullMessageThreadPoolNums = 16 + PROCESSOR_NUMBER * 2;
     private int litePullMessageThreadPoolNums = 16 + PROCESSOR_NUMBER * 2;
     private int ackMessageThreadPoolNums = 3;
+    /**
+     * 处理重试消息的线程池数量
+     */
     private int processReplyMessageThreadPoolNums = 16 + PROCESSOR_NUMBER * 2;
     private int queryMessageThreadPoolNums = 8 + PROCESSOR_NUMBER;
 

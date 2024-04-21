@@ -27,6 +27,9 @@ import org.apache.rocketmq.common.constant.LoggerName;
 import org.apache.rocketmq.logging.org.slf4j.Logger;
 import org.apache.rocketmq.logging.org.slf4j.LoggerFactory;
 
+/**
+ * 消息中转角色的身份
+ */
 public class BrokerIdentity {
     private static final String DEFAULT_CLUSTER_NAME = "DefaultCluster";
 
