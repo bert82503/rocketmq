@@ -20,15 +20,29 @@
  */
 package org.apache.rocketmq.remoting.protocol.heartbeat;
 
+/**
+ * 消费类型
+ */
 public enum ConsumeType {
 
+    /**
+     * 拉取消息
+     * 消费主动
+     */
     CONSUME_ACTIVELY("PULL"),
 
+    /**
+     * 推送消息
+     * 消费被动
+     */
     CONSUME_PASSIVELY("PUSH"),
 
+    /**
+     * 弹出消息
+     */
     CONSUME_POP("POP");
 
-    private String typeCN;
+    private final String typeCN;
 
     ConsumeType(String typeCN) {
         this.typeCN = typeCN;
