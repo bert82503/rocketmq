@@ -22,18 +22,21 @@ package org.apache.rocketmq.remoting.protocol.heartbeat;
 
 /**
  * Message model
+ * 消息模型
  */
 public enum MessageModel {
     /**
      * broadcast
+     * 广播
      */
     BROADCASTING("BROADCASTING"),
     /**
      * clustering
+     * 集群
      */
     CLUSTERING("CLUSTERING");
 
-    private String modeCN;
+    private final String modeCN;
 
     MessageModel(String modeCN) {
         this.modeCN = modeCN;
