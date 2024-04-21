@@ -21,13 +21,18 @@ import io.netty.channel.ChannelHandlerContext;
 import org.apache.rocketmq.proxy.common.ProxyContext;
 import org.apache.rocketmq.remoting.protocol.RemotingCommand;
 
+/**
+ * 请求管道
+ */
 public interface RequestPipeline {
 
     void execute(ChannelHandlerContext ctx, RemotingCommand request, ProxyContext context) throws Exception;
 
     default RequestPipeline pipe(RequestPipeline source) {
         return (ctx, request, context) -> {
+            // 执行源请求管道
             source.execute(ctx, request, context);
+            // 执行请求
             execute(ctx, request, context);
         };
     }
