@@ -24,7 +24,7 @@ import org.apache.rocketmq.common.message.MessageQueue;
  */
 public class SendResult {
     /**
-     * 发送状态
+     * 消息发送状态
      */
     private SendStatus sendStatus;
     /**
