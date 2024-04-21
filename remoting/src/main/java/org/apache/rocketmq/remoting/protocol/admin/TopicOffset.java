@@ -16,9 +16,21 @@
  */
 package org.apache.rocketmq.remoting.protocol.admin;
 
+/**
+ * 消息主题位点
+ */
 public class TopicOffset {
+    /**
+     * 最小偏移
+     */
     private long minOffset;
+    /**
+     * 最大偏移
+     */
     private long maxOffset;
+    /**
+     * 最后一次更新时间戳
+     */
     private long lastUpdateTimestamp;
 
     public long getMinOffset() {
