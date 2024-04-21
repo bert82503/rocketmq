@@ -17,6 +17,9 @@
 
 package org.apache.rocketmq.proxy.common;
 
+/**
+ * 启动操作
+ */
 public interface Start {
     void start() throws Exception;
 }

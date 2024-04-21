@@ -17,6 +17,9 @@
 
 package org.apache.rocketmq.proxy.common;
 
+/**
+ * 关闭操作
+ */
 public interface Shutdown {
     void shutdown() throws Exception;
 }

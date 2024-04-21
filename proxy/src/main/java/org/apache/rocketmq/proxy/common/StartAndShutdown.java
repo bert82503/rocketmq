@@ -17,6 +17,12 @@
 
 package org.apache.rocketmq.proxy.common;
 
+/**
+ * 启动和关闭操作
+ */
 public interface StartAndShutdown extends Start, Shutdown {
+    /**
+     * 关闭前
+     */
     default void preShutdown() throws Exception {}
 }
