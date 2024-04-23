@@ -24,17 +24,50 @@ import org.apache.rocketmq.common.message.MessageConst;
 
 public class ReceiptHandle {
     private static final String SEPARATOR = MessageConst.KEY_SEPARATOR;
+    /**
+     * 普通消息主题
+     */
     public static final String NORMAL_TOPIC = "0";
+    /**
+     * 重试消息主题
+     */
     public static final String RETRY_TOPIC = "1";
+    /**
+     * 开始位点
+     */
     private final long startOffset;
+    /**
+     * 检索时间
+     */
     private final long retrieveTime;
+    /**
+     * 不可见时间
+     */
     private final long invisibleTime;
+    /**
+     * 下一次可见时间
+     */
     private final long nextVisibleTime;
     private final int reviveQueueId;
+    /**
+     * 消息主题类型
+     */
     private final String topicType;
+    /**
+     * 消息中转角色，负责存储消息，转发消息
+     */
     private final String brokerName;
+    /**
+     * 队列ID
+     */
     private final int queueId;
+    /**
+     * 位点
+     */
     private final long offset;
+    /**
+     * 提交日志位点
+     */
     private final long commitLogOffset;
     private final String receiptHandle;
 

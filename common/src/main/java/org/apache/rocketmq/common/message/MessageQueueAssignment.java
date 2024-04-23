@@ -20,7 +20,7 @@ import java.io.Serializable;
 import java.util.Map;
 
 /**
- * 消息队列分配
+ * 消息队列分配【领域模型】
  */
 public class MessageQueueAssignment implements Serializable {
 

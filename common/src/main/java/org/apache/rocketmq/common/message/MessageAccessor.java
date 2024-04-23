@@ -32,6 +32,8 @@ public class MessageAccessor {
         msg.setProperties(properties);
     }
 
+    // 传输标志
+
     public static void setTransferFlag(final Message msg, String unit) {
         putProperty(msg, MessageConst.PROPERTY_TRANSFER_FLAG, unit);
     }
@@ -44,6 +46,8 @@ public class MessageAccessor {
         return msg.getProperty(MessageConst.PROPERTY_TRANSFER_FLAG);
     }
 
+    // 更正标志
+
     public static void setCorrectionFlag(final Message msg, String unit) {
         putProperty(msg, MessageConst.PROPERTY_CORRECTION_FLAG, unit);
     }
@@ -51,6 +55,8 @@ public class MessageAccessor {
     public static String getCorrectionFlag(final Message msg) {
         return msg.getProperty(MessageConst.PROPERTY_CORRECTION_FLAG);
     }
+
+    // 原始消息ID
 
     public static void setOriginMessageId(final Message msg, String originMessageId) {
         putProperty(msg, MessageConst.PROPERTY_ORIGIN_MESSAGE_ID, originMessageId);
@@ -68,6 +74,8 @@ public class MessageAccessor {
         return msg.getProperty(MessageConst.PROPERTY_MQ2_FLAG);
     }
 
+    // 重新消费时间
+
     public static void setReconsumeTime(final Message msg, String reconsumeTimes) {
         putProperty(msg, MessageConst.PROPERTY_RECONSUME_TIME, reconsumeTimes);
     }
@@ -76,6 +84,8 @@ public class MessageAccessor {
         return msg.getProperty(MessageConst.PROPERTY_RECONSUME_TIME);
     }
 
+    // 最大重新消费的次数
+
     public static void setMaxReconsumeTimes(final Message msg, String maxReconsumeTimes) {
         putProperty(msg, MessageConst.PROPERTY_MAX_RECONSUME_TIMES, maxReconsumeTimes);
     }
@@ -83,6 +93,8 @@ public class MessageAccessor {
     public static String getMaxReconsumeTimes(final Message msg) {
         return msg.getProperty(MessageConst.PROPERTY_MAX_RECONSUME_TIMES);
     }
+
+    // 消费开始时间戳
 
     public static void setConsumeStartTimeStamp(final Message msg, String propertyConsumeStartTimeStamp) {
         putProperty(msg, MessageConst.PROPERTY_CONSUME_START_TIMESTAMP, propertyConsumeStartTimeStamp);

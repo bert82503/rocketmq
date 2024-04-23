@@ -24,13 +24,6 @@ public enum ConsumeFromWhere {
      * 消费从最后位点开始，丢弃先前所有的消息
      */
     CONSUME_FROM_LAST_OFFSET,
-
-    @Deprecated
-    CONSUME_FROM_LAST_OFFSET_AND_FROM_MIN_WHEN_BOOT_FIRST,
-    @Deprecated
-    CONSUME_FROM_MIN_OFFSET,
-    @Deprecated
-    CONSUME_FROM_MAX_OFFSET,
     /**
      * 消费从第一个位点开始，重新消费先前所有的消息
      */
@@ -39,4 +32,11 @@ public enum ConsumeFromWhere {
      * 消费从某个时间戳开始
      */
     CONSUME_FROM_TIMESTAMP,
+
+    @Deprecated
+    CONSUME_FROM_LAST_OFFSET_AND_FROM_MIN_WHEN_BOOT_FIRST,
+    @Deprecated
+    CONSUME_FROM_MIN_OFFSET,
+    @Deprecated
+    CONSUME_FROM_MAX_OFFSET,
 }

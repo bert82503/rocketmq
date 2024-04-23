@@ -20,12 +20,27 @@ import java.util.HashSet;
 import java.util.Set;
 import org.apache.rocketmq.common.UtilAll;
 
+/**
+ * 消息主题的验证器
+ */
 public class TopicValidator {
 
+    /**
+     * 自动创建消息主题的键主题
+     */
     public static final String AUTO_CREATE_TOPIC_KEY_TOPIC = "TBW102"; // Will be created at broker when isAutoCreateTopicEnable
+    /**
+     * 调度主题
+     */
     public static final String RMQ_SYS_SCHEDULE_TOPIC = "SCHEDULE_TOPIC_XXXX";
+    /**
+     * 基准测试
+     */
     public static final String RMQ_SYS_BENCHMARK_TOPIC = "BenchmarkTest";
     public static final String RMQ_SYS_TRANS_HALF_TOPIC = "RMQ_SYS_TRANS_HALF_TOPIC";
+    /**
+     * 追踪主题
+     */
     public static final String RMQ_SYS_TRACE_TOPIC = "RMQ_SYS_TRACE_TOPIC";
     public static final String RMQ_SYS_TRANS_OP_HALF_TOPIC = "RMQ_SYS_TRANS_OP_HALF_TOPIC";
     public static final String RMQ_SYS_TRANS_CHECK_MAX_TIME_TOPIC = "TRANS_CHECK_MAX_TIME_TOPIC";

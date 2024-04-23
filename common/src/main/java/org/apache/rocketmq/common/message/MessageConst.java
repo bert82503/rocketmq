@@ -250,8 +250,12 @@ public class MessageConst {
 
     /**
      * properties for DLQ
+     * 死信队列的原始属性集
      */
     public static final String PROPERTY_DLQ_ORIGIN_TOPIC = "DLQ_ORIGIN_TOPIC";
+    /**
+     * 死信队列的原始消息ID
+     */
     public static final String PROPERTY_DLQ_ORIGIN_MESSAGE_ID = "DLQ_ORIGIN_MESSAGE_ID";
 
     static {

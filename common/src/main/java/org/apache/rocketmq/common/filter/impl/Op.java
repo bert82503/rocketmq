@@ -17,9 +17,15 @@
 
 package org.apache.rocketmq.common.filter.impl;
 
+/**
+ * 操作
+ */
 public abstract class Op {
 
-    private String symbol;
+    /**
+     * 符号
+     */
+    private final String symbol;
 
     protected Op(String symbol) {
         this.symbol = symbol;

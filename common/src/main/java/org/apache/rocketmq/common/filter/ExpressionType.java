@@ -17,16 +17,21 @@
 
 package org.apache.rocketmq.common.filter;
 
+/**
+ * 表达式类型
+ */
 public class ExpressionType {
 
     /**
      * <ul>
      * Keywords:
+     * 关键词：
      * <li>{@code AND, OR, NOT, BETWEEN, IN, TRUE, FALSE, IS, NULL}</li>
      * </ul>
      * <p/>
      * <ul>
      * Data type:
+     * 数据类型：
      * <li>Boolean, like: TRUE, FALSE</li>
      * <li>String, like: 'abc'</li>
      * <li>Decimal, like: 123</li>
@@ -35,6 +40,7 @@ public class ExpressionType {
      * <p/>
      * <ul>
      * Grammar:
+     * 语法：
      * <li>{@code AND, OR}</li>
      * <li>{@code >, >=, <, <=, =}</li>
      * <li>{@code BETWEEN A AND B}, equals to {@code >=A AND <=B}</li>
@@ -46,6 +52,7 @@ public class ExpressionType {
      * <p/>
      * <p>
      * Example:
+     * 示例：
      * (a > 10 AND a < 100) OR (b IS NOT NULL AND b=TRUE)
      * </p>
      */
@@ -54,14 +61,12 @@ public class ExpressionType {
     /**
      * Only support or operation such as
      * "tag1 || tag2 || tag3", <br>
-     * If null or * expression,meaning subscribe all.
+     * If null or * expression, meaning subscribe all.
+     * 消息标签
      */
     public static final String TAG = "TAG";
 
     public static boolean isTagType(String type) {
-        if (type == null || "".equals(type) || TAG.equals(type)) {
-            return true;
-        }
-        return false;
+        return type == null || "".equals(type) || TAG.equals(type);
     }
 }

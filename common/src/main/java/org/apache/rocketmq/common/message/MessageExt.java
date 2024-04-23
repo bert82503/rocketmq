@@ -25,7 +25,7 @@ import org.apache.rocketmq.common.TopicFilterType;
 import org.apache.rocketmq.common.sysflag.MessageSysFlag;
 
 /**
- * 拓展消息
+ * 拓展消息【领域模型】
  */
 public class MessageExt extends Message {
     private static final long serialVersionUID = 5720810158625748049L;
@@ -46,7 +46,7 @@ public class MessageExt extends Message {
     private int storeSize;
 
     /**
-     * 消息位点
+     * 队列位点
      */
     private long queueOffset;
     /**
@@ -83,12 +83,12 @@ public class MessageExt extends Message {
      */
     private int bodyCRC;
     /**
-     * 消费次数
+     * 重新消费次数
      */
     private int reconsumeTimes;
 
     /**
-     * 事务位点
+     * 准备的事务位点
      */
     private long preparedTransactionOffset;
 

@@ -21,5 +21,10 @@ package org.apache.rocketmq.common.consistenthash;
  * 散列函数
  */
 public interface HashFunction {
+    /**
+     * 将键散列位长整数值
+     * @param key 键
+     * @return 散列值
+     */
     long hash(String key);
 }

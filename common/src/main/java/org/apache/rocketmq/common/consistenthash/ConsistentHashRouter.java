@@ -32,7 +32,7 @@ import java.util.TreeMap;
  */
 public class ConsistentHashRouter<T extends Node> {
     /**
-     * 节点的虚拟节点的散列环
+     * 节点散列值的虚拟节点的散列环
      * {@code <nodeKeyHash, VirtualNode<T>>}
      */
     private final SortedMap<Long, VirtualNode<T>> ring = new TreeMap<>();
@@ -128,10 +128,14 @@ public class ConsistentHashRouter<T extends Node> {
      * default hash function
      */
     private static class MD5Hash implements HashFunction {
+        /**
+         * 消息摘要实例
+         */
         MessageDigest instance;
 
         public MD5Hash() {
             try {
+                // MD5的消息摘要
                 instance = MessageDigest.getInstance("MD5");
             } catch (NoSuchAlgorithmException e) {
                 // empty

@@ -21,7 +21,7 @@ package org.apache.rocketmq.common.message;
  */
 public class MessageClientExt extends MessageExt {
 
-    // 消息ID
+    // 位点消息ID
 
     public String getOffsetMsgId() {
         return super.getMsgId();
@@ -30,6 +30,8 @@ public class MessageClientExt extends MessageExt {
     public void setOffsetMsgId(String offsetMsgId) {
         super.setMsgId(offsetMsgId);
     }
+
+    // 消息ID
 
     @Override
     public String getMsgId() {

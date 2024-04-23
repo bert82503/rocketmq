@@ -28,9 +28,12 @@ import org.apache.rocketmq.common.constant.PermName;
 import static org.apache.rocketmq.common.TopicAttributes.TOPIC_MESSAGE_TYPE_ATTRIBUTE;
 
 /**
- * 主题配置
+ * 消息主题配置
  */
 public class TopicConfig {
+    /**
+     * 分隔符
+     */
     private static final String SEPARATOR = " ";
     /**
      * 默认的读取队列数量
@@ -54,6 +57,9 @@ public class TopicConfig {
      * 写入队列数量
      */
     private int writeQueueNums = defaultWriteQueueNums;
+    /**
+     * 读取、写入
+     */
     private int perm = PermName.PERM_READ | PermName.PERM_WRITE;
     /**
      * 主题过滤类型
@@ -65,6 +71,7 @@ public class TopicConfig {
      */
     private boolean order = false;
     // Field attributes should not have ' ' char in key or value, otherwise will lead to decode failure.
+    // 属性集
     private Map<String, String> attributes = new HashMap<>();
 
     public TopicConfig() {

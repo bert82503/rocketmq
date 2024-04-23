@@ -24,19 +24,31 @@ import org.apache.rocketmq.common.attribute.TopicMessageType;
 
 import static com.google.common.collect.Sets.newHashSet;
 
+/**
+ * 消息主题的属性集
+ */
 public class TopicAttributes {
+    /**
+     * 消息队列的类型
+     */
     public static final EnumAttribute QUEUE_TYPE_ATTRIBUTE = new EnumAttribute(
         "queue.type",
         false,
         newHashSet("BatchCQ", "SimpleCQ"),
         "SimpleCQ"
     );
+    /**
+     * 清理策略
+     */
     public static final EnumAttribute CLEANUP_POLICY_ATTRIBUTE = new EnumAttribute(
         "cleanup.policy",
         false,
         newHashSet("DELETE", "COMPACTION"),
         "DELETE"
     );
+    /**
+     * 消息类型
+     */
     public static final EnumAttribute TOPIC_MESSAGE_TYPE_ATTRIBUTE = new EnumAttribute(
         "message.type",
         true,

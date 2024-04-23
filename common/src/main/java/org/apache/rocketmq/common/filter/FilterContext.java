@@ -17,7 +17,13 @@
 
 package org.apache.rocketmq.common.filter;
 
+/**
+ * 消息过滤器的上下文
+ */
 public class FilterContext {
+    /**
+     * 消费者分组
+     */
     private String consumerGroup;
 
     public String getConsumerGroup() {

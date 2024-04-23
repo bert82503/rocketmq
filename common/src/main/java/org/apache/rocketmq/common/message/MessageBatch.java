@@ -38,6 +38,7 @@ public class MessageBatch extends Message implements Iterable<Message> {
     }
 
     public byte[] encode() {
+        // 编码
         return MessageDecoder.encodeMessages(messages);
     }
 
@@ -75,7 +76,7 @@ public class MessageBatch extends Message implements Iterable<Message> {
         }
         MessageBatch messageBatch = new MessageBatch(messageList);
 
-        // 主题
+        // 消息主题，同一个
         messageBatch.setTopic(first.getTopic());
         // 表示消息是否在服务器落盘后才返回应答
         messageBatch.setWaitStoreMsgOK(first.isWaitStoreMsgOK());

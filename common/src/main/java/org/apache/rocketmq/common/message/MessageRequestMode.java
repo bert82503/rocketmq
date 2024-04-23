@@ -30,7 +30,7 @@ public enum MessageRequestMode {
 
     /**
      * pop, consumer working in pop mode could share MessageQueue
-     * 弹出
+     * 弹出，推送
      */
     POP("POP");
 

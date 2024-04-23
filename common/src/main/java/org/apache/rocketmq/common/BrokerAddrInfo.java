@@ -17,7 +17,7 @@
 package org.apache.rocketmq.common;
 
 /**
- * 消息服务端地址信息
+ * 消息中转角色的地址信息
  */
 public class BrokerAddrInfo {
     /**
@@ -25,7 +25,7 @@ public class BrokerAddrInfo {
      */
     private final String clusterName;
     /**
-     * 消息服务端地址
+     * 消息中转角色的地址
      */
     private final String brokerAddr;
 

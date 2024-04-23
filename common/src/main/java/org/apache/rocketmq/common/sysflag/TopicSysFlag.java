@@ -17,7 +17,7 @@
 package org.apache.rocketmq.common.sysflag;
 
 /**
- * 主题系统标志
+ * 消息主题系统标志
  */
 public class TopicSysFlag {
 

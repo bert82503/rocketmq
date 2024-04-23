@@ -18,10 +18,22 @@ package org.apache.rocketmq.common;
 
 import com.google.common.base.Objects;
 
+/**
+ * 消息主题的队列ID
+ */
 public class TopicQueueId {
+    /**
+     * 消息主题
+     */
     private final String topic;
+    /**
+     * 队列ID
+     */
     private final int queueId;
 
+    /**
+     * 散列码
+     */
     private final int hash;
 
     public TopicQueueId(String topic, int queueId) {

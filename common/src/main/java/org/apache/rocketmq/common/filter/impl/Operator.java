@@ -17,6 +17,9 @@
 
 package org.apache.rocketmq.common.filter.impl;
 
+/**
+ * 运算符，算子
+ */
 public class Operator extends Op {
 
     public static final Operator LEFTPARENTHESIS = new Operator("(", 30, false);
@@ -24,8 +27,14 @@ public class Operator extends Op {
     public static final Operator AND = new Operator("&&", 20, true);
     public static final Operator OR = new Operator("||", 15, true);
 
-    private int priority;
-    private boolean compareable;
+    /**
+     * 优先级
+     */
+    private final int priority;
+    /**
+     * 可比较的
+     */
+    private final boolean compareable;
 
     private Operator(String symbol, int priority, boolean compareable) {
         super(symbol);

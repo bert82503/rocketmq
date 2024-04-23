@@ -19,6 +19,15 @@ package org.apache.rocketmq.common.filter;
 
 import org.apache.rocketmq.common.message.MessageExt;
 
+/**
+ * 消息过滤器
+ */
 public interface MessageFilter {
+    /**
+     * 消息匹配
+     * @param msg 拓展消息
+     * @param context 消息过滤器的上下文
+     * @return 匹配结果
+     */
     boolean match(final MessageExt msg, final FilterContext context);
 }

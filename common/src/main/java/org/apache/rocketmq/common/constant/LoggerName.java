@@ -16,8 +16,14 @@
  */
 package org.apache.rocketmq.common.constant;
 
+/**
+ * 日志记录器的名称
+ */
 public class LoggerName {
     public static final String FILTERSRV_LOGGER_NAME = "RocketmqFiltersrv";
+    /**
+     * 名称节点的日志记录器的名称
+     */
     public static final String NAMESRV_LOGGER_NAME = "RocketmqNamesrv";
     public static final String NAMESRV_CONSOLE_LOGGER_NAME = "RocketmqNamesrvConsole";
     public static final String CONTROLLER_LOGGER_NAME = "RocketmqController";
@@ -42,6 +48,9 @@ public class LoggerName {
     public static final String DUPLICATION_LOGGER_NAME = "RocketmqDuplication";
     public static final String PROTECTION_LOGGER_NAME = "RocketmqProtection";
     public static final String WATER_MARK_LOGGER_NAME = "RocketmqWaterMark";
+    /**
+     * 过滤器的日志记录器的名称
+     */
     public static final String FILTER_LOGGER_NAME = "RocketmqFilter";
     public static final String ROCKETMQ_POP_LOGGER_NAME = "RocketmqPop";
     public static final String FAILOVER_LOGGER_NAME = "RocketmqFailover";
