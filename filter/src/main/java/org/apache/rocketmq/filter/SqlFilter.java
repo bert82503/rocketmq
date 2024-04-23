@@ -24,6 +24,7 @@ import org.apache.rocketmq.filter.parser.SelectorParser;
 
 /**
  * SQL92 Filter, just a wrapper of {@link org.apache.rocketmq.filter.parser.SelectorParser}.
+ * SQL92过滤器
  * <p/>
  * <p>
  * Do not use this filter directly.Use {@link FilterFactory#get} to select a filter.
