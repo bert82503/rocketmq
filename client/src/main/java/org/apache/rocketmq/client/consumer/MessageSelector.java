@@ -21,6 +21,7 @@ import org.apache.rocketmq.common.filter.ExpressionType;
 
 /**
  * Message selector: select message at server.
+ * 消息选择器：选择服务器上的消息。
  * <p>
  * Now, support:
  * <li>Tag: {@link org.apache.rocketmq.common.filter.ExpressionType#TAG}
@@ -32,14 +33,16 @@ import org.apache.rocketmq.common.filter.ExpressionType;
 public class MessageSelector {
 
     /**
+     * 表达式类型
      * @see org.apache.rocketmq.common.filter.ExpressionType
      */
-    private String type;
+    private final String type;
 
     /**
      * expression content.
+     * 表达式内容
      */
-    private String expression;
+    private final String expression;
 
     private MessageSelector(String type, String expression) {
         this.type = type;
@@ -48,6 +51,7 @@ public class MessageSelector {
 
     /**
      * Use SQL92 to select message.
+     * 使用 SQL92 选择消息。
      *
      * @param sql if null or empty, will be treated as select all message.
      */
@@ -57,6 +61,7 @@ public class MessageSelector {
 
     /**
      * Use tag to select message.
+     * 使用标签选择消息。
      *
      * @param tag if null or empty or "*", will be treated as select all message.
      */
