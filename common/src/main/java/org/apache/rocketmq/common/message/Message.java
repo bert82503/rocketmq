@@ -161,6 +161,8 @@ public class Message implements Serializable {
         this.topic = topic;
     }
 
+    // 消息标签
+
     public String getTags() {
         return this.getProperty(MessageConst.PROPERTY_TAGS);
     }
@@ -168,6 +170,8 @@ public class Message implements Serializable {
     public void setTags(String tags) {
         this.putProperty(MessageConst.PROPERTY_TAGS, tags);
     }
+
+    // 业务标识
 
     public String getKeys() {
         return this.getProperty(MessageConst.PROPERTY_KEYS);
@@ -267,6 +271,8 @@ public class Message implements Serializable {
             ", transactionId='" + transactionId + '\'' +
             '}';
     }
+
+    // 延时消息
 
     public void setDelayTimeSec(long sec) {
         this.putProperty(MessageConst.PROPERTY_TIMER_DELAY_SEC, String.valueOf(sec));

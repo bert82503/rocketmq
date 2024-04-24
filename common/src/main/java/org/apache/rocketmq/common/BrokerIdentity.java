@@ -35,6 +35,9 @@ public class BrokerIdentity {
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(LoggerName.COMMON_LOGGER_NAME);
 
+    /**
+     * 本地主机名称
+     */
     private static String localHostName;
 
     static {
@@ -48,10 +51,19 @@ public class BrokerIdentity {
     // load it after the localHostName is initialized
     public static final BrokerIdentity BROKER_CONTAINER_IDENTITY = new BrokerIdentity(true);
 
+    /**
+     * 名称
+     */
     @ImportantField
     private String brokerName = defaultBrokerName();
+    /**
+     * 集群名称
+     */
     @ImportantField
     private String brokerClusterName = DEFAULT_CLUSTER_NAME;
+    /**
+     * 身份
+     */
     @ImportantField
     private volatile long brokerId = MixAll.MASTER_ID;
 

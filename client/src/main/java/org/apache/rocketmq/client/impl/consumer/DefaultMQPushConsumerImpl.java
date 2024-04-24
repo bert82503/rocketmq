@@ -147,6 +147,10 @@ public class DefaultMQPushConsumerImpl implements MQConsumerInner {
         this.pullTimeDelayMillsWhenException = defaultMQPushConsumer.getPullTimeDelayMillsWhenException();
     }
 
+    /**
+     * 注册筛选消息钩子
+     * @param hook 筛选消息钩子
+     */
     public void registerFilterMessageHook(final FilterMessageHook hook) {
         this.filterMessageHookList.add(hook);
         log.info("register FilterMessageHook Hook, {}", hook.hookName());

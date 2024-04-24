@@ -411,6 +411,7 @@ public class ConsumeQueueExt {
 
     /**
      * Store unit.
+     * 存储单元
      */
     public static class CqExtUnit {
         public static final short MIN_EXT_UNIT_SIZE
@@ -437,10 +438,12 @@ public class ConsumeQueueExt {
         private short size;
         /**
          * has code of tags
+         * 标签编码
          */
         private long tagsCode;
         /**
          * the time to store into commit log of message
+         * 提交日志中，消息的存储时间
          */
         private long msgStoreTime;
         /**

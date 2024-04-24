@@ -49,7 +49,7 @@ public class ConsumerData {
      */
     private Set<SubscriptionData> subscriptionDataSet = new HashSet<>();
     /**
-     * 单元化模式
+     * 单元模式
      */
     private boolean unitMode;
 

@@ -20,11 +20,29 @@ import java.util.List;
 import org.apache.rocketmq.common.message.MessageExt;
 import org.apache.rocketmq.common.message.MessageQueue;
 
+/**
+ * 筛选消息的上下文
+ */
 public class FilterMessageContext {
+    /**
+     * 消费者分组
+     */
     private String consumerGroup;
+    /**
+     * 拓展消息列表
+     */
     private List<MessageExt> msgList;
+    /**
+     * 消息队列
+     */
     private MessageQueue mq;
+    /**
+     * 参数
+     */
     private Object arg;
+    /**
+     * 单元模式
+     */
     private boolean unitMode;
 
     public String getConsumerGroup() {

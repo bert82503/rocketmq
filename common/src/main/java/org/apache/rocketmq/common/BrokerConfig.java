@@ -33,6 +33,9 @@ public class BrokerConfig extends BrokerIdentity {
      */
     private String brokerConfigPath = null;
 
+    /**
+     * 家目录
+     */
     private String rocketmqHome = System.getProperty(MixAll.ROCKETMQ_HOME_PROPERTY, System.getenv(MixAll.ROCKETMQ_HOME_ENV));
     /**
      * 名称服务的地址
@@ -42,6 +45,7 @@ public class BrokerConfig extends BrokerIdentity {
 
     /**
      * Listen port for single broker
+     * 监听端口
      */
     @ImportantField
     private int listenPort = 6888;
@@ -166,6 +170,9 @@ public class BrokerConfig extends BrokerIdentity {
 
     private int filterServerNums = 0;
 
+    /**
+     * 长轮训开关
+     */
     private boolean longPollingEnable = true;
 
     private long shortPollingTimeMills = 1000;
@@ -187,6 +194,9 @@ public class BrokerConfig extends BrokerIdentity {
     private String regionId = MixAll.DEFAULT_TRACE_REGION_ID;
     private int registerBrokerTimeoutMills = 24000;
 
+    /**
+     * 发送心跳包的超时时间
+     */
     private int sendHeartbeatTimeoutMillis = 1000;
 
     private boolean slaveReadEnable = false;
@@ -225,7 +235,13 @@ public class BrokerConfig extends BrokerIdentity {
     private long filterDataCleanTimeSpan = 24 * 3600 * 1000;
 
     // whether do filter when retry.
+    /**
+     * 筛选消息支持重试
+     */
     private boolean filterSupportRetry = false;
+    /**
+     * 消息属性筛选开关
+     */
     private boolean enablePropertyFilter = false;
 
     private boolean compressedRegister = false;
