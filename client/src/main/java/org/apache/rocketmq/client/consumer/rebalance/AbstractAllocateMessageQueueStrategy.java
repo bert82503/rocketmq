@@ -25,6 +25,9 @@ import org.apache.rocketmq.common.message.MessageQueue;
 import org.apache.rocketmq.logging.org.slf4j.Logger;
 import org.apache.rocketmq.logging.org.slf4j.LoggerFactory;
 
+/**
+ * 用于在消费者之间分配消息的策略算法的抽象框架实现
+ */
 public abstract class AbstractAllocateMessageQueueStrategy implements AllocateMessageQueueStrategy {
 
     private static final Logger log = LoggerFactory.getLogger(AbstractAllocateMessageQueueStrategy.class);

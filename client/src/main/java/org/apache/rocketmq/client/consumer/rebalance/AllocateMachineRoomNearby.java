@@ -28,6 +28,7 @@ import org.apache.rocketmq.common.message.MessageQueue;
 /**
  * An allocate strategy proxy for based on machine room nearside priority. An actual allocate strategy can be
  * specified.
+ * 基于机房近侧优先级的分配策略代理。实际的分配策略可以是指定。
  *
  * If any consumer is alive in a machine room, the message queue of the broker which is deployed in the same machine
  * should only be allocated to those. Otherwise, those message queues can be shared along all consumers since there are

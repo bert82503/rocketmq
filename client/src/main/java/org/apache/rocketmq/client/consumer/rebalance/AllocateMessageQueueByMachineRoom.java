@@ -23,9 +23,13 @@ import org.apache.rocketmq.common.message.MessageQueue;
 
 /**
  * Computer room Hashing queue algorithm, such as Alipay logic room
+ * 机房哈希队列算法，如支付宝逻辑机房
  */
 public class AllocateMessageQueueByMachineRoom extends AbstractAllocateMessageQueueStrategy {
-    private Set<String> consumeridcs;
+    /**
+     * 消费者的机房列表
+     */
+    private Set<String> consumerIdcs;
 
     @Override
     public List<MessageQueue> allocate(String consumerGroup, String currentCID, List<MessageQueue> mqAll,
@@ -42,7 +46,7 @@ public class AllocateMessageQueueByMachineRoom extends AbstractAllocateMessageQu
         List<MessageQueue> premqAll = new ArrayList<>();
         for (MessageQueue mq : mqAll) {
             String[] temp = mq.getBrokerName().split("@");
-            if (temp.length == 2 && consumeridcs.contains(temp[0])) {
+            if (temp.length == 2 && consumerIdcs.contains(temp[0])) {
                 premqAll.add(mq);
             }
         }
@@ -66,10 +70,10 @@ public class AllocateMessageQueueByMachineRoom extends AbstractAllocateMessageQu
     }
 
     public Set<String> getConsumeridcs() {
-        return consumeridcs;
+        return consumerIdcs;
     }
 
-    public void setConsumeridcs(Set<String> consumeridcs) {
-        this.consumeridcs = consumeridcs;
+    public void setConsumeridcs(Set<String> consumerIdcs) {
+        this.consumerIdcs = consumerIdcs;
     }
 }

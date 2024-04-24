@@ -19,6 +19,9 @@ package org.apache.rocketmq.client.consumer.rebalance;
 import java.util.List;
 import org.apache.rocketmq.common.message.MessageQueue;
 
+/**
+ * 通过配置分配消息队列
+ */
 public class AllocateMessageQueueByConfig extends AbstractAllocateMessageQueueStrategy {
     private List<MessageQueue> messageQueueList;
 
