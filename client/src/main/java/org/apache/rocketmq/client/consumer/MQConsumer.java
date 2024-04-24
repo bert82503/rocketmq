@@ -26,8 +26,10 @@ import org.apache.rocketmq.remoting.exception.RemotingException;
 
 /**
  * Message queue consumer interface
+ * 消息队列的消费者
  */
 public interface MQConsumer extends MQAdmin {
+    // 发送消息
     /**
      * If consuming failure,message will be send back to the brokers,and delay consuming some time
      */
@@ -43,6 +45,7 @@ public interface MQConsumer extends MQAdmin {
 
     /**
      * Fetch message queues from consumer cache according to the topic
+     * 抓取消费者订阅的消息队列
      *
      * @param topic message topic
      * @return queue set

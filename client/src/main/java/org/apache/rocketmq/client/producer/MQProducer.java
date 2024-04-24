@@ -26,12 +26,19 @@ import org.apache.rocketmq.common.message.Message;
 import org.apache.rocketmq.common.message.MessageQueue;
 import org.apache.rocketmq.remoting.exception.RemotingException;
 
+/**
+ * 消息生产者
+ */
 public interface MQProducer extends MQAdmin {
     void start() throws MQClientException;
 
     void shutdown();
 
+    // 通过消息主题抓取发布的消息队列的列表
+
     List<MessageQueue> fetchPublishMessageQueues(final String topic) throws MQClientException;
+
+    // 发送消息
 
     SendResult send(final Message msg) throws MQClientException, RemotingException, MQBrokerException,
         InterruptedException;

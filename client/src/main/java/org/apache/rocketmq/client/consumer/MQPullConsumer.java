@@ -25,6 +25,7 @@ import org.apache.rocketmq.remoting.exception.RemotingException;
 
 /**
  * Pulling consumer interface
+ * 拉取消费者
  */
 public interface MQPullConsumer extends MQConsumer {
     /**
@@ -39,11 +40,15 @@ public interface MQPullConsumer extends MQConsumer {
 
     /**
      * Register the message queue listener
+     * 注册消息队列的监听器
      */
     void registerMessageQueueListener(final String topic, final MessageQueueListener listener);
 
+    // 拉取消息列表
+
     /**
-     * Pulling the messages,not blocking
+     * Pulling the messages, not blocking
+     * 拉取消息列表，非阻塞
      *
      * @param mq from which message queue
      * @param subExpression subscription expression.it only support or operation such as "tag1 || tag2 || tag3" <br> if
@@ -149,6 +154,8 @@ public interface MQPullConsumer extends MQConsumer {
     void pullBlockIfNotFound(final MessageQueue mq, final String subExpression, final long offset,
         final int maxNums, final PullCallback pullCallback) throws MQClientException, RemotingException,
         InterruptedException;
+
+    // 消费位点
 
     /**
      * Update the offset

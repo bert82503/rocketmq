@@ -26,11 +26,13 @@ import java.util.Map;
 
 /**
  * Base interface for MQ management
+ * 消息管理
  */
 public interface MQAdmin {
+    // 创建一个消息主题
     /**
      * Creates an topic
-     *  @param key accesskey
+     * @param key accesskey
      * @param newTopic topic name
      * @param queueNum topic's queue number
      * @param attributes
@@ -40,7 +42,7 @@ public interface MQAdmin {
 
     /**
      * Creates an topic
-     *  @param key accesskey
+     * @param key accesskey
      * @param newTopic topic name
      * @param queueNum topic's queue number
      * @param topicSysFlag topic system flag
@@ -48,6 +50,8 @@ public interface MQAdmin {
      */
     void createTopic(String key, String newTopic, int queueNum, int topicSysFlag, Map<String, String> attributes)
         throws MQClientException;
+
+    // 消息位点
 
     /**
      * Gets the message queue offset according to some time in milliseconds<br>
@@ -82,6 +86,8 @@ public interface MQAdmin {
      * @return the time in microseconds
      */
     long earliestMsgStoreTime(final MessageQueue mq) throws MQClientException;
+
+    // 消息视图
 
     /**
      * Query message according to message id

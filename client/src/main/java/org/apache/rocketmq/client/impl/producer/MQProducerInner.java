@@ -22,6 +22,9 @@ import org.apache.rocketmq.client.producer.TransactionListener;
 import org.apache.rocketmq.common.message.MessageExt;
 import org.apache.rocketmq.remoting.protocol.header.CheckTransactionStateRequestHeader;
 
+/**
+ * 消息生产者
+ */
 public interface MQProducerInner {
     Set<String> getPublishTopicList();
 
