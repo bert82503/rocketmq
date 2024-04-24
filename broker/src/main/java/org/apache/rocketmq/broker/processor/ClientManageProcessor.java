@@ -43,8 +43,14 @@ import org.apache.rocketmq.remoting.protocol.heartbeat.ProducerData;
 import org.apache.rocketmq.remoting.protocol.heartbeat.SubscriptionData;
 import org.apache.rocketmq.remoting.protocol.subscription.SubscriptionGroupConfig;
 
+/**
+ * 客户端管理的处理器
+ */
 public class ClientManageProcessor implements NettyRequestProcessor {
     private static final Logger LOGGER = LoggerFactory.getLogger(LoggerName.BROKER_LOGGER_NAME);
+    /**
+     * 消息中转角色的控制器
+     */
     private final BrokerController brokerController;
 
     public ClientManageProcessor(final BrokerController brokerController) {
@@ -60,6 +66,7 @@ public class ClientManageProcessor implements NettyRequestProcessor {
             case RequestCode.UNREGISTER_CLIENT:
                 return this.unregisterClient(ctx, request);
             case RequestCode.CHECK_CLIENT_CONFIG:
+                // 检查客户端配置
                 return this.checkClientConfig(ctx, request);
             default:
                 break;
@@ -188,14 +195,18 @@ public class ClientManageProcessor implements NettyRequestProcessor {
             CheckClientRequestBody.class);
 
         if (requestBody != null && requestBody.getSubscriptionData() != null) {
+            // 订阅关系数据
             SubscriptionData subscriptionData = requestBody.getSubscriptionData();
 
+            // 消息的过滤标签类型
             if (ExpressionType.isTagType(subscriptionData.getExpressionType())) {
                 response.setCode(ResponseCode.SUCCESS);
                 response.setRemark(null);
                 return response;
             }
 
+            // 消息属性过滤开关
+            // 过滤标签Tag
             if (!this.brokerController.getBrokerConfig().isEnablePropertyFilter()) {
                 response.setCode(ResponseCode.SYSTEM_ERROR);
                 response.setRemark("The broker does not support consumer to filter message by " + subscriptionData.getExpressionType());

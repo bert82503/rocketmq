@@ -54,7 +54,7 @@ public class ConsumerFilterManager extends ConfigManager {
         filterDataByTopic = new ConcurrentHashMap<>(256);
 
     /**
-     * 消息中转角色的管理器
+     * 消息中转角色的控制器
      */
     private transient BrokerController brokerController;
     /**

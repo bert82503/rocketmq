@@ -80,7 +80,7 @@ public abstract class AbstractSendMessageProcessor implements NettyRequestProces
 
     protected final static int DLQ_NUMS_PER_GROUP = 1;
     /**
-     * 消息中转角色的管理器
+     * 消息中转角色的控制器
      */
     protected final BrokerController brokerController;
     protected final Random random = new Random(System.currentTimeMillis());

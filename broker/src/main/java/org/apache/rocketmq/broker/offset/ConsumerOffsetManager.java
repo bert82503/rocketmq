@@ -64,7 +64,7 @@ public class ConsumerOffsetManager extends ConfigManager {
         new ConcurrentHashMap<>(512);
 
     /**
-     * 消息中转角色的管理器
+     * 消息中转角色的控制器
      */
     protected transient BrokerController brokerController;
 

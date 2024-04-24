@@ -74,10 +74,22 @@ import org.apache.rocketmq.store.stats.BrokerStatsManager;
 
 import static org.apache.rocketmq.remoting.protocol.RemotingCommand.buildErrorResponse;
 
+/**
+ * 拉取消息的处理器
+ */
 public class PullMessageProcessor implements NettyRequestProcessor {
     private static final Logger LOGGER = LoggerFactory.getLogger(LoggerName.BROKER_LOGGER_NAME);
+    /**
+     * 消费消息钩子的列表
+     */
     private List<ConsumeMessageHook> consumeMessageHookList;
+    /**
+     * 拉取消息结果的处理器
+     */
     private PullMessageResultHandler pullMessageResultHandler;
+    /**
+     * 消息中转角色的控制器
+     */
     private final BrokerController brokerController;
 
     public PullMessageProcessor(final BrokerController brokerController) {
@@ -283,6 +295,7 @@ public class PullMessageProcessor implements NettyRequestProcessor {
     @Override
     public RemotingCommand processRequest(final ChannelHandlerContext ctx,
         RemotingCommand request) throws RemotingCommandException {
+        // 处理请求
         return this.processRequest(ctx.channel(), request, true);
     }
 
@@ -384,6 +397,7 @@ public class PullMessageProcessor implements NettyRequestProcessor {
                 break;
         }
 
+        // 订阅关系数据
         SubscriptionData subscriptionData = null;
         ConsumerFilterData consumerFilterData = null;
         if (hasSubscriptionFlag) {
@@ -408,6 +422,7 @@ public class PullMessageProcessor implements NettyRequestProcessor {
                 return response;
             }
         } else {
+            // 消费者分组信息
             ConsumerGroupInfo consumerGroupInfo =
                 this.brokerController.getConsumerManager().getConsumerGroupInfo(requestHeader.getConsumerGroup());
             if (null == consumerGroupInfo) {
@@ -434,6 +449,7 @@ public class PullMessageProcessor implements NettyRequestProcessor {
                 return response;
             }
 
+            // 订阅关系数据
             subscriptionData = consumerGroupInfo.findSubscriptionData(requestHeader.getTopic());
             if (null == subscriptionData) {
                 LOGGER.warn("the consumer's subscription not exist, group: {}, topic:{}", requestHeader.getConsumerGroup(), requestHeader.getTopic());
@@ -449,6 +465,7 @@ public class PullMessageProcessor implements NettyRequestProcessor {
                 response.setRemark("the consumer's subscription not latest");
                 return response;
             }
+            // 消息的过滤标签类型
             if (!ExpressionType.isTagType(subscriptionData.getExpressionType())) {
                 consumerFilterData = this.brokerController.getConsumerFilterManager().get(requestHeader.getTopic(),
                     requestHeader.getConsumerGroup());
@@ -467,6 +484,8 @@ public class PullMessageProcessor implements NettyRequestProcessor {
             }
         }
 
+        // 过滤标签Tag订阅
+        // 消息属性过滤开关
         if (!ExpressionType.isTagType(subscriptionData.getExpressionType())
             && !this.brokerController.getBrokerConfig().isEnablePropertyFilter()) {
             response.setCode(ResponseCode.SYSTEM_ERROR);
@@ -476,6 +495,7 @@ public class PullMessageProcessor implements NettyRequestProcessor {
 
         // 消息过滤器
         MessageFilter messageFilter;
+        // 过滤消息支持重试
         if (this.brokerController.getBrokerConfig().isFilterSupportRetry()) {
             messageFilter = new ExpressionForRetryMessageFilter(subscriptionData, consumerFilterData,
                 this.brokerController.getConsumerFilterManager());
@@ -508,6 +528,7 @@ public class PullMessageProcessor implements NettyRequestProcessor {
             } else {
                 SubscriptionData finalSubscriptionData = subscriptionData;
                 RemotingCommand finalResponse = response;
+                // 从消息存储异步获取消息
                 messageStore.getMessageAsync(group, topic, queueId, requestHeader.getQueueOffset(),
                         requestHeader.getMaxMsgNums(), messageFilter)
                     .thenApply(result -> {
