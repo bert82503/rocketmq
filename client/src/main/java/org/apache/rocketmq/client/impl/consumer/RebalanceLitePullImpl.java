@@ -30,6 +30,9 @@ import org.apache.rocketmq.common.message.MessageQueue;
 import org.apache.rocketmq.remoting.protocol.heartbeat.ConsumeType;
 import org.apache.rocketmq.remoting.protocol.heartbeat.MessageModel;
 
+/**
+ * 精简版的拉取消息重新平衡实现
+ */
 public class RebalanceLitePullImpl extends RebalanceImpl {
 
     private final DefaultLitePullConsumerImpl litePullConsumerImpl;

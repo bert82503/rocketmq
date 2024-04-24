@@ -46,19 +46,40 @@ import org.apache.rocketmq.remoting.protocol.heartbeat.SubscriptionData;
 import org.apache.rocketmq.logging.org.slf4j.Logger;
 import org.apache.rocketmq.logging.org.slf4j.LoggerFactory;
 
+/**
+ * 消息重新平衡实现
+ */
 public abstract class RebalanceImpl {
     protected static final Logger log = LoggerFactory.getLogger(RebalanceImpl.class);
 
     protected final ConcurrentMap<MessageQueue, ProcessQueue> processQueueTable = new ConcurrentHashMap<>(64);
     protected final ConcurrentMap<MessageQueue, PopProcessQueue> popProcessQueueTable = new ConcurrentHashMap<>(64);
 
+    /**
+     * 主题消息队列的关联表
+     */
     protected final ConcurrentMap<String/* topic */, Set<MessageQueue>> topicSubscribeInfoTable =
         new ConcurrentHashMap<>();
+    /**
+     * 主题订阅关系的关联表
+     */
     protected final ConcurrentMap<String /* topic */, SubscriptionData> subscriptionInner =
         new ConcurrentHashMap<>();
+    /**
+     * 消费者分组
+     */
     protected String consumerGroup;
+    /**
+     * 消息模型
+     */
     protected MessageModel messageModel;
+    /**
+     * 用于在消费者之间分配消息的策略算法
+     */
     protected AllocateMessageQueueStrategy allocateMessageQueueStrategy;
+    /**
+     * 客户端实例
+     */
     protected MQClientInstance mQClientFactory;
     private static final int TIMEOUT_CHECK_TIMES = 3;
     private static final int QUERY_ASSIGNMENT_TIMEOUT = 3000;

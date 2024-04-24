@@ -26,6 +26,9 @@ import org.apache.rocketmq.common.message.MessageQueue;
 import org.apache.rocketmq.remoting.protocol.heartbeat.ConsumeType;
 import org.apache.rocketmq.remoting.protocol.heartbeat.MessageModel;
 
+/**
+ * 拉取消息重新平衡实现
+ */
 public class RebalancePullImpl extends RebalanceImpl {
     private final DefaultMQPullConsumerImpl defaultMQPullConsumerImpl;
 
