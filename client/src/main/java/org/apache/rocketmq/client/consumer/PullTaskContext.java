@@ -16,10 +16,16 @@
  */
 package org.apache.rocketmq.client.consumer;
 
+/**
+ * 拉取任务的上下文
+ */
 public class PullTaskContext {
 
     private int pullNextDelayTimeMillis = 200;
 
+    /**
+     * 拉取消费者
+     */
     private MQPullConsumer pullConsumer;
 
     public int getPullNextDelayTimeMillis() {

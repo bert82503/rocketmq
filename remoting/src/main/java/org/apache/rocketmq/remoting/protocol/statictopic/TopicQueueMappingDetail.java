@@ -23,6 +23,9 @@ import java.util.concurrent.ConcurrentMap;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
+/**
+ * 消息主题队列的映射信息明细
+ */
 public class TopicQueueMappingDetail extends TopicQueueMappingInfo {
 
     // the mapping info in current broker, do not register to nameserver

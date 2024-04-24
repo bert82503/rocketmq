@@ -29,6 +29,9 @@ public class TopicQueueMappingInfo extends RemotingSerializable {
 
     String topic; // redundant field
     String scope = MixAll.METADATA_SCOPE_GLOBAL;
+    /**
+     * 总的队列数量
+     */
     int totalQueues;
     String bname;  //identify the hosted broker name
     long epoch; //important to fence the old dirty data

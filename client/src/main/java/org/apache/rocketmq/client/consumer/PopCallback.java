@@ -18,6 +18,7 @@ package org.apache.rocketmq.client.consumer;
 
 /**
  * Async message pop interface
+ * 异步消息弹出回调
  */
 public interface PopCallback {
     void onSuccess(final PopResult popResult);

@@ -16,6 +16,9 @@
  */
 package org.apache.rocketmq.client.consumer;
 
+/**
+ * 弹出状态
+ */
 public enum PopStatus {
     /**
      * Founded

@@ -31,22 +31,43 @@ import org.apache.rocketmq.remoting.rpc.TopicQueueRequestHeader;
 
 public class PullMessageRequestHeader extends TopicQueueRequestHeader implements FastCodesHeader {
 
+    /**
+     * 消费者分组
+     */
     @CFNotNull
     private String consumerGroup;
+    /**
+     * 消息主题
+     */
     @CFNotNull
     private String topic;
+    /**
+     * 消息队列ID
+     */
     @CFNotNull
     private Integer queueId;
+    /**
+     * 队列位点
+     */
     @CFNotNull
     private Long queueOffset;
+    /**
+     * 最大消息的数量
+     */
     @CFNotNull
     private Integer maxMsgNums;
     @CFNotNull
     private Integer sysFlag;
+    /**
+     * 提交位点
+     */
     @CFNotNull
     private Long commitOffset;
     @CFNotNull
     private Long suspendTimeoutMillis;
+    /**
+     * 订阅关系
+     */
     @CFNullable
     private String subscription;
     @CFNotNull

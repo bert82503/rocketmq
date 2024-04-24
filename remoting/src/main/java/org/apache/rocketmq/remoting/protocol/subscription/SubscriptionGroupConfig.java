@@ -62,7 +62,7 @@ public class SubscriptionGroupConfig {
     private GroupRetryPolicy groupRetryPolicy = new GroupRetryPolicy();
 
     /**
-     * 经纪人身份
+     * 消息中转角色ID
      */
     private long brokerId = MixAll.MASTER_ID;
 

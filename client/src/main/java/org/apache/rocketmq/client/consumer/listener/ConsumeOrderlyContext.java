@@ -20,9 +20,16 @@ import org.apache.rocketmq.common.message.MessageQueue;
 
 /**
  * Consumer Orderly consumption context
+ * 消费者有序消费的上下文
  */
 public class ConsumeOrderlyContext {
+    /**
+     * 消息队列
+     */
     private final MessageQueue messageQueue;
+    /**
+     * 自动提交
+     */
     private boolean autoCommit = true;
     private long suspendCurrentQueueTimeMillis = -1;
 

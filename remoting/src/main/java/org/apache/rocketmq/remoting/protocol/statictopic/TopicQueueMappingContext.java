@@ -19,13 +19,34 @@ package org.apache.rocketmq.remoting.protocol.statictopic;
 import com.google.common.collect.ImmutableList;
 import java.util.List;
 
+/**
+ * 消息主题队列映射的上下文
+ */
 public class TopicQueueMappingContext  {
+    /**
+     * 消息主题
+     */
     private String topic;
+    /**
+     * 全局ID
+     */
     private Integer globalId;
+    /**
+     * 消息主题队列的映射信息明细
+     */
     private TopicQueueMappingDetail mappingDetail;
+    /**
+     * 逻辑队列的映射项的列表
+     */
     private List<LogicQueueMappingItem> mappingItemList;
+    /**
+     * 领导者的逻辑队列的映射项
+     */
     private LogicQueueMappingItem leaderItem;
 
+    /**
+     * 当前的逻辑队列的映射项
+     */
     private LogicQueueMappingItem currentItem;
 
     public TopicQueueMappingContext(String topic, Integer globalId, TopicQueueMappingDetail mappingDetail, List<LogicQueueMappingItem> mappingItemList, LogicQueueMappingItem leaderItem) {

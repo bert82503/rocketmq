@@ -20,6 +20,9 @@ package org.apache.rocketmq.client.producer;
  * 消息发送状态
  */
 public enum SendStatus {
+    /**
+     * 发送正常
+     */
     SEND_OK,
     /**
      * 刷到磁盘超时

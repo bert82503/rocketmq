@@ -25,6 +25,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * 精简版的拉取消费者
+ */
 public interface LitePullConsumer {
 
     /**
@@ -43,6 +46,8 @@ public interface LitePullConsumer {
      * @return true if consumer is still running
      */
     boolean isRunning();
+
+    // 订阅消息主题
 
     /**
      * Subscribe some topic with all tags
@@ -82,6 +87,7 @@ public interface LitePullConsumer {
      */
     void unsubscribe(final String topic);
 
+    // 分配消息队列
 
     /**
      * subscribe mode, get assigned MessageQueue
@@ -106,6 +112,8 @@ public interface LitePullConsumer {
      *      * null or * expression,meaning subscribe all
      */
     void setSubExpressionForAssign(final String topic, final String subExpression);
+
+    // 弹出消息列表
 
     /**
      * Fetch data for the topics or partitions specified using assign API
@@ -187,6 +195,8 @@ public interface LitePullConsumer {
      * @throws MQClientException if there is any client error.
      */
     Long offsetForTimestamp(MessageQueue messageQueue, Long timestamp) throws MQClientException;
+
+    // 提交消息
 
     @Deprecated
     /**

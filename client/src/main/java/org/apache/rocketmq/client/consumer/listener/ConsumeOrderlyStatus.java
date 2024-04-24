@@ -16,9 +16,13 @@
  */
 package org.apache.rocketmq.client.consumer.listener;
 
+/**
+ * 有序消费状态
+ */
 public enum ConsumeOrderlyStatus {
     /**
      * Success consumption
+     * 成功消费
      */
     SUCCESS,
     /**

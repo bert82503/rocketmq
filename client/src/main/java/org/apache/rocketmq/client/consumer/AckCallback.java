@@ -16,6 +16,9 @@
  */
 package org.apache.rocketmq.client.consumer;
 
+/**
+ * 消息ACK回调
+ */
 public interface AckCallback {
     void onSuccess(final AckResult ackResult);
 
