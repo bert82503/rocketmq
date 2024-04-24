@@ -2147,6 +2147,7 @@ public class MQClientAPIImpl implements NameServerUpdateCallback {
         throw new MQClientException(response.getCode(), response.getRemark());
     }
 
+    // 主题的消费者分组列表
     public GroupList queryTopicConsumeByWho(final String addr, final String topic, final long timeoutMillis)
         throws RemotingConnectException, RemotingSendRequestException, RemotingTimeoutException, InterruptedException,
         MQBrokerException {

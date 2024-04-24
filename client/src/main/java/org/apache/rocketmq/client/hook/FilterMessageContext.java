@@ -21,7 +21,7 @@ import org.apache.rocketmq.common.message.MessageExt;
 import org.apache.rocketmq.common.message.MessageQueue;
 
 /**
- * 筛选消息的上下文
+ * 过滤消息的上下文
  */
 public class FilterMessageContext {
     /**

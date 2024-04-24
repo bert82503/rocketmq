@@ -236,11 +236,11 @@ public class BrokerConfig extends BrokerIdentity {
 
     // whether do filter when retry.
     /**
-     * 筛选消息支持重试
+     * 过滤消息支持重试
      */
     private boolean filterSupportRetry = false;
     /**
-     * 消息属性筛选开关
+     * 消息属性过滤开关
      */
     private boolean enablePropertyFilter = false;
 

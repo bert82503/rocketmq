@@ -39,7 +39,7 @@ import org.apache.rocketmq.remoting.protocol.heartbeat.SubscriptionData;
 
 /**
  * Consumer filter data manager.Just manage the consumers use expression filter.
- * 消费者筛选管理器
+ * 消费者过滤管理器
  */
 public class ConsumerFilterManager extends ConfigManager {
 
@@ -48,7 +48,7 @@ public class ConsumerFilterManager extends ConfigManager {
     private static final long MS_24_HOUR = 24 * 3600 * 1000;
 
     /**
-     * 通过消息主题筛选数据
+     * 通过消息主题过滤数据
      */
     private ConcurrentMap<String/*Topic*/, FilterDataMapByTopic>
         filterDataByTopic = new ConcurrentHashMap<>(256);
@@ -331,12 +331,12 @@ public class ConsumerFilterManager extends ConfigManager {
     }
 
     /**
-     * 通过消息主题筛选数据
+     * 通过消息主题过滤数据
      */
     public static class FilterDataMapByTopic {
 
         /**
-         * 消费者分组的筛选数据
+         * 消费者分组的过滤数据
          */
         private ConcurrentMap<String/*consumer group*/, ConsumerFilterData>
             groupFilterData = new ConcurrentHashMap<>();

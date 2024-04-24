@@ -191,7 +191,7 @@ public class BrokerController {
      */
     protected final ConsumerManager consumerManager;
     /**
-     * 消费者筛选管理器
+     * 消费者过滤管理器
      */
     protected final ConsumerFilterManager consumerFilterManager;
     /**
