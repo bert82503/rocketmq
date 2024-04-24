@@ -26,10 +26,14 @@ import org.apache.rocketmq.remoting.protocol.subscription.SubscriptionGroupConfi
 import org.apache.rocketmq.store.GetMessageResult;
 import org.apache.rocketmq.store.MessageFilter;
 
+/**
+ * 拉取消息结果的处理器
+ */
 public interface PullMessageResultHandler {
 
     /**
      * Handle result of get message from store.
+     * 处理从存储获取消息的结果。
      *
      * @param getMessageResult store result
      * @param request request

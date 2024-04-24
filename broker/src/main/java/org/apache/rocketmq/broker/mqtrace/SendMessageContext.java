@@ -21,6 +21,9 @@ import java.util.Properties;
 import org.apache.rocketmq.common.message.MessageType;
 import org.apache.rocketmq.store.stats.BrokerStatsManager;
 
+/**
+ * 发送消息的上下文
+ */
 public class SendMessageContext {
     /** namespace */
     private String namespace;

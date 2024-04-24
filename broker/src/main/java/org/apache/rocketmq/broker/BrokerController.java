@@ -159,35 +159,80 @@ import org.apache.rocketmq.store.timer.TimerCheckpoint;
 import org.apache.rocketmq.store.timer.TimerMessageStore;
 import org.apache.rocketmq.store.timer.TimerMetrics;
 
+/**
+ * 消息中转角色的管理器
+ */
 public class BrokerController {
     protected static final Logger LOG = LoggerFactory.getLogger(LoggerName.BROKER_LOGGER_NAME);
     private static final Logger LOG_PROTECTION = LoggerFactory.getLogger(LoggerName.PROTECTION_LOGGER_NAME);
     private static final Logger LOG_WATER_MARK = LoggerFactory.getLogger(LoggerName.WATER_MARK_LOGGER_NAME);
     protected static final int HA_ADDRESS_MIN_LENGTH = 6;
 
+    /**
+     * 消息中转角色的配置
+     */
     protected final BrokerConfig brokerConfig;
     private final NettyServerConfig nettyServerConfig;
     private final NettyClientConfig nettyClientConfig;
+    /**
+     * 消息存储配置
+     */
     protected final MessageStoreConfig messageStoreConfig;
+    /**
+     * 消费者位点管理器
+     */
     protected final ConsumerOffsetManager consumerOffsetManager;
+    /**
+     * 广播消息的位点管理器
+     */
     protected final BroadcastOffsetManager broadcastOffsetManager;
+    /**
+     * 消费者的管理器
+     */
     protected final ConsumerManager consumerManager;
+    /**
+     * 消费者筛选管理器
+     */
     protected final ConsumerFilterManager consumerFilterManager;
+    /**
+     * 消费者有序信息的管理器
+     */
     protected final ConsumerOrderInfoManager consumerOrderInfoManager;
     protected final PopInflightMessageCounter popInflightMessageCounter;
+    /**
+     * 生产者的管理器
+     */
     protected final ProducerManager producerManager;
+    /**
+     * 调度的消息服务
+     */
     protected final ScheduleMessageService scheduleMessageService;
     protected final ClientHousekeepingService clientHousekeepingService;
+    /**
+     * 拉取消息的处理器
+     */
     protected final PullMessageProcessor pullMessageProcessor;
     protected final PeekMessageProcessor peekMessageProcessor;
+    /**
+     * 弹出/推送消息的处理器
+     */
     protected final PopMessageProcessor popMessageProcessor;
+    /**
+     * ACK消息的处理器
+     */
     protected final AckMessageProcessor ackMessageProcessor;
     protected final ChangeInvisibleTimeProcessor changeInvisibleTimeProcessor;
     protected final NotificationProcessor notificationProcessor;
     protected final PollingInfoProcessor pollingInfoProcessor;
     protected final QueryAssignmentProcessor queryAssignmentProcessor;
     protected final ClientManageProcessor clientManageProcessor;
+    /**
+     * 发送消息的处理器
+     */
     protected final SendMessageProcessor sendMessageProcessor;
+    /**
+     * 回复消息的处理器
+     */
     protected final ReplyMessageProcessor replyMessageProcessor;
     protected final PullRequestHoldService pullRequestHoldService;
     protected final MessageArrivingListener messageArrivingListener;

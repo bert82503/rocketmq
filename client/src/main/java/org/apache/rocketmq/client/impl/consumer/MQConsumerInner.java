@@ -26,27 +26,57 @@ import org.apache.rocketmq.remoting.protocol.heartbeat.SubscriptionData;
 
 /**
  * Consumer inner interface
+ * 消费者
  */
 public interface MQConsumerInner {
+    /**
+     * @return 消费者分组名称
+     */
     String groupName();
 
+    /**
+     * @return 消息模型
+     */
     MessageModel messageModel();
 
+    /**
+     * @return 消费类型
+     */
     ConsumeType consumeType();
 
+    /**
+     * @return 消费从哪里开始
+     */
     ConsumeFromWhere consumeFromWhere();
 
+    /**
+     * @return 订阅关系数据
+     */
     Set<SubscriptionData> subscriptions();
 
+    /**
+     * 进行消息重新平衡
+     */
     void doRebalance();
 
+    /**
+     * 持久化消费者位点
+     */
     void persistConsumerOffset();
 
+    /**
+     * 更新消息主题的订阅信息
+     * @param topic 消息主题
+     * @param info  消息队列的列表
+     */
     void updateTopicSubscribeInfo(final String topic, final Set<MessageQueue> info);
 
     boolean isSubscribeTopicNeedUpdate(final String topic);
 
     boolean isUnitMode();
 
+    /**
+     * @return 消费者运行信息
+     */
     ConsumerRunningInfo consumerRunningInfo();
 }

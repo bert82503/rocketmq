@@ -73,11 +73,20 @@ public abstract class AbstractSendMessageProcessor implements NettyRequestProces
     protected static final Logger LOGGER = LoggerFactory.getLogger(LoggerName.BROKER_LOGGER_NAME);
     protected static final Logger DLQ_LOG = LoggerFactory.getLogger(LoggerName.DLQ_LOGGER_NAME);
 
+    /**
+     * 消费消息钩子的列表
+     */
     protected List<ConsumeMessageHook> consumeMessageHookList;
 
     protected final static int DLQ_NUMS_PER_GROUP = 1;
+    /**
+     * 消息中转角色的管理器
+     */
     protected final BrokerController brokerController;
     protected final Random random = new Random(System.currentTimeMillis());
+    /**
+     * 发送消息钩子的列表
+     */
     private List<SendMessageHook> sendMessageHookList;
 
     public AbstractSendMessageProcessor(final BrokerController brokerController) {

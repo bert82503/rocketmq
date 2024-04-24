@@ -21,17 +21,50 @@ import java.util.Map;
 import org.apache.rocketmq.common.TopicConfig;
 import org.apache.rocketmq.store.stats.BrokerStatsManager;
 
+/**
+ * 消费消息的上下文
+ */
 public class ConsumeMessageContext {
+    /**
+     * 消费者分组
+     */
     private String consumerGroup;
+    /**
+     * 消息主题
+     */
     private String topic;
+    /**
+     * 队列ID
+     */
     private Integer queueId;
+    /**
+     * 客户端主机
+     */
     private String clientHost;
+    /**
+     * 队列存储主机
+     */
     private String storeHost;
+    /**
+     * 消息ID映射表
+     */
     private Map<String, Long> messageIds;
+    /**
+     * 消息体长度
+     */
     private int bodyLength;
+    /**
+     * 操作成功与否标识
+     */
     private boolean success;
+    /**
+     * 操作状态
+     */
     private String status;
     private Object mqTraceContext;
+    /**
+     * 消息主题配置
+     */
     private TopicConfig topicConfig;
 
     private String accountAuthType;
@@ -47,6 +80,9 @@ public class ConsumeMessageContext {
     private int commercialRcvTimes;
     private int commercialRcvSize;
 
+    /**
+     * 命名空间
+     */
     private String namespace;
     public String getConsumerGroup() {
         return consumerGroup;

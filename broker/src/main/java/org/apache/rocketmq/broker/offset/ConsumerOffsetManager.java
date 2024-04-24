@@ -36,21 +36,36 @@ import org.apache.rocketmq.logging.org.slf4j.LoggerFactory;
 import org.apache.rocketmq.remoting.protocol.DataVersion;
 import org.apache.rocketmq.remoting.protocol.RemotingSerializable;
 
+/**
+ * 消费者位点管理器
+ */
 public class ConsumerOffsetManager extends ConfigManager {
     private static final Logger LOG = LoggerFactory.getLogger(LoggerName.BROKER_LOGGER_NAME);
     public static final String TOPIC_GROUP_SEPARATOR = "@";
 
     private DataVersion dataVersion = new DataVersion();
 
+    /**
+     * 主题分组的位点关联表
+     */
     private ConcurrentMap<String/* topic@group */, ConcurrentMap<Integer, Long>> offsetTable =
         new ConcurrentHashMap<>(512);
 
+    /**
+     * 主题分组的重置位点关联表
+     */
     private final ConcurrentMap<String, ConcurrentMap<Integer, Long>> resetOffsetTable =
         new ConcurrentHashMap<>(512);
 
+    /**
+     * 主题分组的拉取位点关联表
+     */
     private final ConcurrentMap<String/* topic@group */, ConcurrentMap<Integer, Long>> pullOffsetTable =
         new ConcurrentHashMap<>(512);
 
+    /**
+     * 消息中转角色的管理器
+     */
     protected transient BrokerController brokerController;
 
     private final transient AtomicLong versionChangeCounter = new AtomicLong(0);

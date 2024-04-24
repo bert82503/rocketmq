@@ -37,6 +37,9 @@ import org.apache.rocketmq.logging.org.slf4j.LoggerFactory;
 import org.apache.rocketmq.remoting.protocol.RemotingSerializable;
 import org.apache.rocketmq.remoting.protocol.header.ExtraInfoUtil;
 
+/**
+ * 消费者有序信息的管理器
+ */
 public class ConsumerOrderInfoManager extends ConfigManager {
 
     private static final Logger log = LoggerFactory.getLogger(LoggerName.BROKER_LOGGER_NAME);
